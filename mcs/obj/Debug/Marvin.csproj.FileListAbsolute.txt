@@ -1,0 +1,5 @@
+D:\GitHub\M\Marvin\mcs\obj\Debug\Marvin.csprojResolveAssemblyReference.cache
+D:\GitHub\M\Marvin\mcs\obj\Debug\Marvin.exe
+D:\GitHub\M\Marvin\mcs\obj\Debug\Marvin.pdb
+D:\GitHub\M\Marvin\mcs\Marvin.exe
+D:\GitHub\M\Marvin\mcs\Marvin.pdb

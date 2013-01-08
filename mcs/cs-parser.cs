@@ -1,6 +1,6 @@
 // created by jay 0.7 (c) 1998 Axel.Schreiner@informatik.uni-osnabrueck.de
 
-#line 2 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
 //
 // cs-parser.jay: The Parser for the C# compiler
 //
@@ -59,6 +59,7 @@ namespace Mono.CSharp
 		bool isInteraction;
 	    bool interactionInitializationDone;
 		bool isInteractionArgumentList;
+		bool isRoleMethod;
 		
 		/// <summary>
 		///   Current block is used to add statements as we find
@@ -1397,17 +1398,17 @@ namespace Mono.CSharp
         yyVal = yyDefault(yyV > yyTop ? null : yyVals[yyV]);
         switch (yyN) {
 case 1:
-#line 390 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 391 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Lexer.check_incorrect_doc_comment ();
 	  }
   break;
 case 2:
-#line 393 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 394 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { Lexer.CompleteOnEOF = false; }
   break;
 case 6:
-#line 400 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 401 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] != null) {
 			Attributes attrs = (Attributes) yyVals[0+yyTop];
@@ -1417,13 +1418,13 @@ case 6:
 	  }
   break;
 case 7:
-#line 408 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 409 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		module.AddAttributes ((Attributes) yyVals[0+yyTop], current_namespace);
 	  }
   break;
 case 8:
-#line 412 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 413 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyToken == Token.EXTERN_ALIAS)
 			report.Error (439, lexer.Location, "An extern alias declaration must precede all other elements");
@@ -1432,7 +1433,7 @@ case 8:
 	  }
   break;
 case 13:
-#line 432 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 433 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
 		string s = lt.Value;
@@ -1447,27 +1448,27 @@ case 13:
 	  }
   break;
 case 14:
-#line 445 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 446 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	syntax_error (GetLocation (yyVals[-1+yyTop]), "`alias' expected");   /* TODO: better*/
 	  }
   break;
 case 17:
-#line 457 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 458 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			Lexer.doc_state = XmlCommentState.Allowed;
 	  }
   break;
 case 18:
-#line 462 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 463 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			Lexer.doc_state = XmlCommentState.Allowed;
 	  }
   break;
 case 19:
-#line 470 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 471 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-3+yyTop];
 		if (lang_version != LanguageVersion.ISO_1 && lt.Value == "global") {
@@ -1479,20 +1480,20 @@ case 19:
 	  }
   break;
 case 20:
-#line 480 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 481 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = null;
 	  }
   break;
 case 21:
-#line 488 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 489 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_namespace.AddUsing ((MemberName) yyVals[-1+yyTop], GetLocation (yyVals[-2+yyTop]));
 	  }
   break;
 case 22:
-#line 500 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 501 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Attributes attrs = (Attributes) yyVals[-2+yyTop];
 		MemberName name = (MemberName) yyVals[0+yyTop];
@@ -1523,14 +1524,14 @@ case 22:
 	  }
   break;
 case 23:
-#line 529 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 530 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			Lexer.doc_state = XmlCommentState.Allowed;
 	  }
   break;
 case 24:
-#line 534 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 535 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] != null)
 			lbag.AddLocation (current_namespace, GetLocation (yyVals[-9+yyTop]), GetLocation (yyVals[-6+yyTop]), GetLocation (yyVals[-1+yyTop]), GetLocation (yyVals[0+yyTop]));
@@ -1543,28 +1544,28 @@ case 24:
 	  }
   break;
 case 25:
-#line 548 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 549 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		yyVal = new MemberName (lt.Value, lt.Location);
 	  }
   break;
 case 26:
-#line 553 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 554 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		yyVal = new MemberName ((MemberName) yyVals[-2+yyTop], lt.Value, lt.Location);		
 	  }
   break;
 case 27:
-#line 558 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 559 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = new MemberName ("<invalid>", lexer.Location);
 	  }
   break;
 case 32:
-#line 576 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 577 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		MemberName name = (MemberName) yyVals[0+yyTop];
 
@@ -1575,7 +1576,7 @@ case 32:
 	  }
   break;
 case 41:
-#line 608 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 609 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] != null) {
 			TypeContainer ds = (TypeContainer)yyVals[0+yyTop];
@@ -1596,20 +1597,20 @@ case 41:
 	  }
   break;
 case 42:
-#line 627 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 628 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_namespace.DeclarationFound = true;
 	  }
   break;
 case 50:
-#line 658 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 659 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var sect = (List<Attribute>) yyVals[0+yyTop];
 		yyVal = new Attributes (sect);
 	  }
   break;
 case 51:
-#line 663 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 664 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Attributes attrs = yyVals[-1+yyTop] as Attributes;
 		var sect = (List<Attribute>) yyVals[0+yyTop];
@@ -1621,20 +1622,20 @@ case 51:
 	  }
   break;
 case 52:
-#line 676 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 677 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_attribute_section = true;
 	  }
   break;
 case 53:
-#line 680 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 681 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_attribute_section = false;
 		yyVal = yyVals[0+yyTop];
 	  }
   break;
 case 54:
-#line 688 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 689 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_attr_target = (string) yyVals[-1+yyTop];
 		if (current_attr_target == "assembly" || current_attr_target == "module") {
@@ -1643,7 +1644,7 @@ case 54:
 	  }
   break;
 case 55:
-#line 695 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 696 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		/* when attribute target is invalid*/
 		if (current_attr_target == string.Empty)
@@ -1656,28 +1657,28 @@ case 55:
  	  }
   break;
 case 56:
-#line 706 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 707 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[-2+yyTop];
 	  }
   break;
 case 57:
-#line 713 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 714 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		yyVal = CheckAttributeTarget (lt.Value, lt.Location);
 	  }
   break;
 case 58:
-#line 717 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 718 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = "event"; }
   break;
 case 59:
-#line 718 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 719 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = "return"; }
   break;
 case 60:
-#line 720 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 721 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyToken == Token.IDENTIFIER) {
 			Error_SyntaxError (yyToken);
@@ -1689,13 +1690,13 @@ case 60:
 	  }
   break;
 case 61:
-#line 733 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 734 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new List<Attribute> (4) { (Attribute) yyVals[0+yyTop] };
 	  }
   break;
 case 62:
-#line 737 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 738 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var attrs = (List<Attribute>) yyVals[-2+yyTop];
 		attrs.Add ((Attribute) yyVals[0+yyTop]);
@@ -1704,13 +1705,13 @@ case 62:
 	  }
   break;
 case 63:
-#line 747 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 748 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_block;
 	  }
   break;
 case 64:
-#line 751 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 752 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_block;
 		MemberName mname = (MemberName) yyVals[-2+yyTop];
@@ -1725,21 +1726,21 @@ case 64:
 	  }
   break;
 case 66:
-#line 770 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 771 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 67:
-#line 772 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 773 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[-1+yyTop];
 	  }
   break;
 case 68:
-#line 779 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 780 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 69:
-#line 781 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 782 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Arguments a = new Arguments (4);
 		a.Add ((Argument) yyVals[0+yyTop]);
@@ -1747,7 +1748,7 @@ case 69:
 	  }
   break;
 case 70:
-#line 787 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 788 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Arguments a = new Arguments (4);
 		a.Add ((Argument) yyVals[0+yyTop]);  
@@ -1755,7 +1756,7 @@ case 70:
 	  }
   break;
 case 71:
-#line 793 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 794 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Arguments[] o = (Arguments[]) yyVals[-2+yyTop];
 		if (o [1] != null) {
@@ -1771,7 +1772,7 @@ case 71:
 	  }
   break;
 case 72:
-#line 807 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 808 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Arguments[] o = (Arguments[]) yyVals[-2+yyTop];
 		if (o [1] == null) {
@@ -1782,19 +1783,19 @@ case 72:
 	  }
   break;
 case 73:
-#line 819 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 820 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	yyVal = new Argument ((Expression) yyVals[0+yyTop]);
 	  }
   break;
 case 75:
-#line 827 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 828 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_block;
 	  }
   break;
 case 76:
-#line 831 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 832 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	--lexer.parsing_block;
 	  	var lt = (Tokenizer.LocatedToken) yyVals[-3+yyTop];
@@ -1802,7 +1803,7 @@ case 76:
 	  }
   break;
 case 77:
-#line 840 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 841 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version <= LanguageVersion.V_3)
 			FeatureIsNotAvailable (GetLocation (yyVals[-3+yyTop]), "named argument");
@@ -1815,35 +1816,35 @@ case 77:
 	  }
   break;
 case 78:
-#line 853 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 854 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 79:
-#line 855 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 856 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		yyVal = Argument.AType.Ref;
 	  }
   break;
 case 80:
-#line 859 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 860 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		yyVal = Argument.AType.Out;
 	  }
   break;
 case 83:
-#line 871 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 872 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_modifiers = true;
 	  }
   break;
 case 84:
-#line 875 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 876 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_modifiers = true;
 	  }
   break;
 case 97:
-#line 894 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 895 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (1519, lexer.Location, "Unexpected symbol `{0}' in class, struct, or interface member declaration",
 			GetSymbolName (yyToken));
@@ -1852,20 +1853,20 @@ case 97:
 	  }
   break;
 case 98:
-#line 907 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 908 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = true;
 	  }
   break;
 case 99:
-#line 911 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 912 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		MemberName name = MakeName ((MemberName) yyVals[0+yyTop]);
 		push_current_class (new Struct (current_namespace, current_class, name, (Modifiers) yyVals[-4+yyTop], (Attributes) yyVals[-5+yyTop]), yyVals[-3+yyTop]);
 	  }
   break;
 case 100:
-#line 917 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 918 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = false;
 
@@ -1880,14 +1881,14 @@ case 100:
 	  }
   break;
 case 101:
-#line 930 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 931 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			Lexer.doc_state = XmlCommentState.Allowed;
 	  }
   break;
 case 102:
-#line 935 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 936 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_declaration;
 		if (doc_support)
@@ -1895,20 +1896,20 @@ case 102:
 	  }
   break;
 case 103:
-#line 941 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 942 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lbag.AppendToMember (current_class, GetLocation (yyVals[-5+yyTop]), GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 		yyVal = pop_current_class ();
 	  }
   break;
 case 104:
-#line 946 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 947 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 	  }
   break;
 case 105:
-#line 955 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 956 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		var mod = (Modifiers) yyVals[-3+yyTop];
@@ -1923,7 +1924,7 @@ case 105:
 	  }
   break;
 case 106:
-#line 968 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 969 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support) {
 			current_field.DocComment = Lexer.consume_doc_comment ();
@@ -1936,19 +1937,19 @@ case 106:
 	  }
   break;
 case 117:
-#line 1002 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1003 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
          yyVal = yyVals[0+yyTop];
       }
   break;
 case 118:
-#line 1006 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1007 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
         yyVal = new SimpleName("dynamic",new Location(0,0));
       }
   break;
 case 119:
-#line 1012 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1013 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	lexer.parsing_generic_declaration = false;
 	  	var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
@@ -1973,17 +1974,17 @@ case 119:
 	  }
   break;
 case 120:
-#line 1038 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1039 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
          current_role = null;
       }
   break;
 case 121:
-#line 1044 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1045 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {   yyVal = null;  }
   break;
 case 122:
-#line 1046 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1047 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
         TypeParameter tparam = null;
         var simple = current_role.TypeExpression as SimpleName;
@@ -2019,7 +2020,7 @@ case 122:
 	}
   break;
 case 123:
-#line 1080 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1081 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_declaration;	  
 		if (doc_support)
@@ -2041,19 +2042,19 @@ case 123:
 	  }
   break;
 case 124:
-#line 1103 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1104 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_field.AddDeclarator ((FieldDeclarator) yyVals[0+yyTop]);
 	  }
   break;
 case 125:
-#line 1107 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1108 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_field.AddDeclarator ((FieldDeclarator) yyVals[0+yyTop]);
 	  }
   break;
 case 126:
-#line 1114 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1115 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 	  	yyVal = new FieldDeclarator (new SimpleMemberName (lt.Value, lt.Location), (ConstInitializer) yyVals[0+yyTop]);
@@ -2061,27 +2062,27 @@ case 126:
 	  }
   break;
 case 127:
-#line 1123 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1124 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_block;
 	  }
   break;
 case 128:
-#line 1127 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1128 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_block;
 		yyVal = new ConstInitializer (current_field, (Expression) yyVals[0+yyTop], GetLocation (yyVals[-2+yyTop]));
 	  }
   break;
 case 129:
-#line 1132 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1133 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (145, lexer.Location, "A const field requires a value to be provided");
 		yyVal = null;
 	  }
   break;
 case 132:
-#line 1147 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1148 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	lexer.parsing_generic_declaration = false;
 
@@ -2096,7 +2097,7 @@ case 132:
 	  }
   break;
 case 133:
-#line 1162 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1163 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		if (doc_support) {
 			current_field.DocComment = Lexer.consume_doc_comment ();
@@ -2109,7 +2110,7 @@ case 133:
 	  }
   break;
 case 134:
-#line 1175 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1176 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		if (lang_version < LanguageVersion.ISO_2)
 			FeatureIsNotAvailable (GetLocation (yyVals[-2+yyTop]), "fixed size buffers");
@@ -2122,7 +2123,7 @@ case 134:
 	  }
   break;
 case 135:
-#line 1186 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1187 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support) {
 			current_field.DocComment = Lexer.consume_doc_comment ();
@@ -2136,13 +2137,13 @@ case 135:
 	  }
   break;
 case 136:
-#line 1201 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1202 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (1641, GetLocation (yyVals[-1+yyTop]), "A fixed size buffer field must have the array size specifier after the field name");
 	  }
   break;
 case 138:
-#line 1209 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1210 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	++lexer.parsing_block;
 		current_local_parameters = ParametersCompiled.EmptyReadOnlyParameters;
@@ -2150,7 +2151,7 @@ case 138:
 	  }
   break;
 case 139:
-#line 1215 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1216 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	--lexer.parsing_block;
 		current_field.Initializer = (Expression) yyVals[0+yyTop];
@@ -2159,19 +2160,19 @@ case 139:
 	  }
   break;
 case 142:
-#line 1230 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1231 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_field.AddDeclarator ((FieldDeclarator) yyVals[0+yyTop]);
 	  }
   break;
 case 143:
-#line 1234 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1235 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_field.AddDeclarator ((FieldDeclarator) yyVals[0+yyTop]);
 	  }
   break;
 case 144:
-#line 1241 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1242 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 	  	yyVal = new FieldDeclarator (new SimpleMemberName (lt.Value, lt.Location), null);
@@ -2179,13 +2180,13 @@ case 144:
 	  }
   break;
 case 145:
-#line 1247 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1248 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_block;
 	  }
   break;
 case 146:
-#line 1251 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1252 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_block;
 		var lt = (Tokenizer.LocatedToken) yyVals[-3+yyTop];	  
@@ -2194,19 +2195,19 @@ case 146:
 	  }
   break;
 case 149:
-#line 1266 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1267 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_field.AddDeclarator ((FieldDeclarator) yyVals[0+yyTop]);
 	  }
   break;
 case 150:
-#line 1270 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1271 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_field.AddDeclarator ((FieldDeclarator) yyVals[0+yyTop]);
 	  }
   break;
 case 151:
-#line 1277 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1278 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];	  
 		yyVal = new FieldDeclarator (new SimpleMemberName (lt.Value, lt.Location), (ConstInitializer) yyVals[0+yyTop]);
@@ -2214,13 +2215,13 @@ case 151:
 	  }
   break;
 case 152:
-#line 1286 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1287 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_block;
 	  }
   break;
 case 153:
-#line 1290 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1291 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_block;
 		yyVal = new ConstInitializer (current_field, (Expression) yyVals[-1+yyTop], GetLocation (yyVals[-3+yyTop]));
@@ -2228,14 +2229,14 @@ case 153:
 	  }
   break;
 case 154:
-#line 1296 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1297 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (443, lexer.Location, "Value or constant expected");
 		yyVal = null;
 	  }
   break;
 case 157:
-#line 1306 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1307 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		/* It has to be here for the parent to safely restore artificial block*/
 	  	Error_SyntaxError (yyToken);
@@ -2243,7 +2244,7 @@ case 157:
 	  }
   break;
 case 158:
-#line 1315 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1316 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			Lexer.doc_state = XmlCommentState.NotAllowed;
@@ -2256,7 +2257,7 @@ case 158:
 	  }
   break;
 case 159:
-#line 1326 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1327 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Method method = (Method) yyVals[-2+yyTop];
 		method.Block = (ToplevelBlock) yyVals[0+yyTop];
@@ -2283,7 +2284,7 @@ case 159:
 	  }
   break;
 case 160:
-#line 1354 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1355 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			Lexer.doc_state = XmlCommentState.NotAllowed;
@@ -2295,7 +2296,7 @@ case 160:
 	  }
   break;
 case 161:
-#line 1364 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1365 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
         try{
 		    Method method = (Method) yyVals[-2+yyTop];
@@ -2327,26 +2328,26 @@ case 161:
 	  }
   break;
 case 162:
-#line 1398 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1399 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	      isInteraction = true;
           interactionInitializationDone = false;		  
 	  }
   break;
 case 163:
-#line 1404 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1405 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = ParameterModifierType.All;
 	  }
   break;
 case 164:
-#line 1408 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1409 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = true;
 	  }
   break;
 case 165:
-#line 1412 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1413 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = false;
 		valid_param_mod = 0;
@@ -2376,11 +2377,11 @@ case 165:
 	  }
   break;
 case 166:
-#line 1443 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1444 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			Lexer.doc_state = XmlCommentState.NotAllowed;
-
+        isRoleMethod = true;
 		/* Add it early in the case of body being eof for full ast*/
 		var m = (Method) yyVals[0+yyTop];
         async_block = (m.ModFlags & Modifiers.ASYNC) != 0;
@@ -2388,7 +2389,7 @@ case 166:
 	  }
   break;
 case 167:
-#line 1453 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1454 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var method = (Method) yyVals[-2+yyTop];
 		method.Block = (ToplevelBlock) yyVals[0+yyTop];
@@ -2412,16 +2413,17 @@ case 167:
 
 		if (doc_support)
 		    Lexer.doc_state = XmlCommentState.Allowed;
+		isRoleMethod = false;
 	  }
   break;
 case 168:
-#line 1481 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1483 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
     yyVal = Modifiers.PRIVATE | Modifiers.ROLE;
   }
   break;
 case 169:
-#line 1485 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1487 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
     {
     yyVal = Modifiers.PRIVATE | Modifiers.ROLE |Modifiers.ENTRY;
@@ -2429,20 +2431,20 @@ case 169:
   }
   break;
 case 170:
-#line 1497 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1499 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	    isInteraction = false;
 		valid_param_mod = ParameterModifierType.All;
 	  }
   break;
 case 171:
-#line 1502 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1504 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = true;
 	  }
   break;
 case 172:
-#line 1506 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1508 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = false;
 		valid_param_mod = 0;
@@ -2477,20 +2479,20 @@ case 172:
 	  }
   break;
 case 173:
-#line 1545 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1547 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	    isInteraction = false;
 		valid_param_mod = ParameterModifierType.All;
 	  }
   break;
 case 174:
-#line 1550 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1552 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = true;
 	  }
   break;
 case 175:
-#line 1554 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1556 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = false;
 		valid_param_mod = 0;
@@ -2599,26 +2601,26 @@ case 175:
 	  }
   break;
 case 176:
-#line 1664 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1666 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_generic_declaration = true;
 	  }
   break;
 case 177:
-#line 1669 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1671 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_generic_declaration = false;
 	  	valid_param_mod = ParameterModifierType.All;
 	  }
   break;
 case 178:
-#line 1674 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1676 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = true;
 	  }
   break;
 case 179:
-#line 1678 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1680 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = false;
 		valid_param_mod = 0;
@@ -2654,7 +2656,7 @@ case 179:
 	  }
   break;
 case 180:
-#line 1715 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1717 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		MemberName name = (MemberName) yyVals[-3+yyTop];
 		report.Error (1585, name.Location, 
@@ -2672,22 +2674,22 @@ case 180:
 	  }
   break;
 case 182:
-#line 1734 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1736 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 183:
-#line 1738 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1740 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = ParametersCompiled.EmptyReadOnlyParameters; }
   break;
 case 185:
-#line 1744 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1746 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var pars_list = (List<Parameter>) yyVals[0+yyTop];
 	  	yyVal = new ParametersCompiled (pars_list.ToArray ());
 	  }
   break;
 case 186:
-#line 1749 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1751 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var pars_list = (List<Parameter>) yyVals[-2+yyTop];
 		pars_list.Add ((Parameter) yyVals[0+yyTop]);
@@ -2696,7 +2698,7 @@ case 186:
 	  }
   break;
 case 187:
-#line 1756 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1758 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var pars_list = (List<Parameter>) yyVals[-2+yyTop];
 		pars_list.Add (new ArglistParameter (GetLocation (yyVals[0+yyTop])));
@@ -2704,7 +2706,7 @@ case 187:
 	  }
   break;
 case 188:
-#line 1762 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1764 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[-2+yyTop] != null)
 			report.Error (231, ((Parameter) yyVals[-2+yyTop]).Location, "A params parameter must be the last parameter in a formal parameter list");
@@ -2713,7 +2715,7 @@ case 188:
 	  }
   break;
 case 189:
-#line 1769 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1771 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[-2+yyTop] != null)
 			report.Error (231, ((Parameter) yyVals[-2+yyTop]).Location, "A params parameter must be the last parameter in a formal parameter list");
@@ -2725,7 +2727,7 @@ case 189:
 	  }
   break;
 case 190:
-#line 1779 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1781 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (257, GetLocation (yyVals[-2+yyTop]), "An __arglist parameter must be the last parameter in a formal parameter list");
 
@@ -2733,7 +2735,7 @@ case 190:
 	  }
   break;
 case 191:
-#line 1785 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1787 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (257, GetLocation (yyVals[-2+yyTop]), "An __arglist parameter must be the last parameter in a formal parameter list");
 
@@ -2744,26 +2746,26 @@ case 191:
 	  }
   break;
 case 192:
-#line 1794 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1796 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ParametersCompiled (new Parameter[] { (Parameter) yyVals[0+yyTop] } );
 	  }
   break;
 case 193:
-#line 1798 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1800 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ParametersCompiled (new Parameter [] { new ArglistParameter (GetLocation (yyVals[0+yyTop])) }, true);
 	  }
   break;
 case 194:
-#line 1802 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1804 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = ParametersCompiled.EmptyReadOnlyParameters;
 	  }
   break;
 case 195:
-#line 1810 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1812 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		parameters_bucket.Clear ();
 		Parameter p = (Parameter) yyVals[0+yyTop];
@@ -2774,7 +2776,7 @@ case 195:
 	  }
   break;
 case 196:
-#line 1819 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1821 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var pars = (List<Parameter>) yyVals[-2+yyTop];
 		Parameter p = (Parameter) yyVals[0+yyTop];
@@ -2794,14 +2796,14 @@ case 196:
 	  }
   break;
 case 197:
-#line 1843 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1845 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		yyVal = new Parameter ((FullNamedExpression) yyVals[-1+yyTop], lt.Value, (Parameter.Modifier) yyVals[-2+yyTop], (Attributes) yyVals[-3+yyTop], lt.Location);
 	  }
   break;
 case 198:
-#line 1851 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1853 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
 		report.Error (1552, lt.Location, "Array type specifier, [], must appear before parameter name");
@@ -2809,7 +2811,7 @@ case 198:
 	  }
   break;
 case 199:
-#line 1860 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1862 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);	  
 	  	Location l = GetLocation (yyVals[0+yyTop]);
@@ -2817,13 +2819,13 @@ case 199:
 	  }
   break;
 case 200:
-#line 1870 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1872 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	++lexer.parsing_block;
 	  }
   break;
 case 201:
-#line 1874 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1876 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	--lexer.parsing_block;
 		if (lang_version <= LanguageVersion.V_3) {
@@ -2862,17 +2864,17 @@ case 201:
 	  }
   break;
 case 202:
-#line 1913 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1915 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Parameter.Modifier.NONE; }
   break;
 case 204:
-#line 1919 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1921 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[0+yyTop];
 	  }
   break;
 case 205:
-#line 1923 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1925 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Parameter.Modifier p2 = (Parameter.Modifier)yyVals[0+yyTop];
   		Parameter.Modifier mod = (Parameter.Modifier)yyVals[-1+yyTop] | p2;
@@ -2895,7 +2897,7 @@ case 205:
 	  }
   break;
 case 206:
-#line 1947 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1949 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if ((valid_param_mod & ParameterModifierType.Ref) == 0)
 	  		Error_ParameterModifierNotValid ("ref", GetLocation (yyVals[0+yyTop]));
@@ -2904,7 +2906,7 @@ case 206:
 	  }
   break;
 case 207:
-#line 1954 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1956 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if ((valid_param_mod & ParameterModifierType.Out) == 0)
 	  		Error_ParameterModifierNotValid ("out", GetLocation (yyVals[0+yyTop]));
@@ -2913,7 +2915,7 @@ case 207:
 	  }
   break;
 case 208:
-#line 1961 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1963 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if ((valid_param_mod & ParameterModifierType.This) == 0)
 	  		Error_ParameterModifierNotValid ("this", GetLocation (yyVals[0+yyTop]));
@@ -2925,14 +2927,14 @@ case 208:
 	  }
   break;
 case 209:
-#line 1974 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1976 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		yyVal = new ParamsParameter ((FullNamedExpression) yyVals[-1+yyTop], lt.Value, (Attributes) yyVals[-3+yyTop], lt.Location);
 	  }
   break;
 case 210:
-#line 1979 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1981 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (1751, GetLocation (yyVals[-4+yyTop]), "Cannot specify a default value for a parameter array");
 		
@@ -2941,21 +2943,21 @@ case 210:
 	  }
   break;
 case 211:
-#line 1986 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1988 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = null;
 	  }
   break;
 case 212:
-#line 1994 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 1996 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if ((valid_param_mod & ParameterModifierType.Params) == 0)
 			report.Error (1670, (GetLocation (yyVals[0+yyTop])), "The `params' modifier is not allowed in current context");
 	  }
   break;
 case 213:
-#line 1999 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2001 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Parameter.Modifier mod = (Parameter.Modifier)yyVals[0+yyTop];
 		if ((mod & Parameter.Modifier.This) != 0) {
@@ -2966,27 +2968,27 @@ case 213:
 	  }
   break;
 case 214:
-#line 2008 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2010 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_DuplicateParameterModifier (GetLocation (yyVals[-1+yyTop]), Parameter.Modifier.PARAMS);
 	  }
   break;
 case 215:
-#line 2015 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2017 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if ((valid_param_mod & ParameterModifierType.Arglist) == 0)
 	  		report.Error (1669, GetLocation (yyVals[0+yyTop]), "__arglist is not valid in this context");
 	  }
   break;
 case 216:
-#line 2026 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2028 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			tmpComment = Lexer.consume_doc_comment ();
 	  }
   break;
 case 217:
-#line 2031 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2033 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var type = (FullNamedExpression) yyVals[-3+yyTop];
 		current_property = new Property (current_class, type, (Modifiers) yyVals[-4+yyTop],
@@ -3002,7 +3004,7 @@ case 217:
 	  }
   break;
 case 218:
-#line 2045 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2047 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.PropertyParsing = false;
 		
@@ -3011,20 +3013,20 @@ case 218:
 	  }
   break;
 case 219:
-#line 2052 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2054 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lbag.AppendToMember (current_property, GetLocation (yyVals[0+yyTop]));
 		current_property = null;
 	  }
   break;
 case 220:
-#line 2062 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2064 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	valid_param_mod = ParameterModifierType.Params | ParameterModifierType.DefaultValue;
 	  }
   break;
 case 221:
-#line 2066 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2068 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = 0;
 		var type = (FullNamedExpression) yyVals[-6+yyTop];
@@ -3051,13 +3053,13 @@ case 221:
 	  }
   break;
 case 222:
-#line 2091 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2093 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.PropertyParsing = false;
 	  }
   break;
 case 223:
-#line 2095 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2097 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (current_property.AccessorFirst != null && current_property.AccessorFirst.Block == null)
 			((Indexer) current_property).ParameterInfo.CheckParameters (current_property);
@@ -3070,7 +3072,7 @@ case 223:
 	  }
   break;
 case 228:
-#line 2114 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2116 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if (yyToken == Token.CLOSE_BRACE) {
 	  		report.Error (548, lexer.Location, "`{0}': property or indexer must have at least one accessor", current_property.GetSignatureForError ());
@@ -3083,7 +3085,7 @@ case 228:
 	  }
   break;
 case 229:
-#line 2128 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2130 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[-1+yyTop] != ModifierNone && lang_version == LanguageVersion.ISO_1) {
 			FeatureIsNotAvailable (GetLocation (yyVals[-1+yyTop]), "access modifiers on properties");
@@ -3107,7 +3109,7 @@ case 229:
 	  }
   break;
 case 230:
-#line 2150 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2152 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if (yyVals[0+yyTop] != null) {
 	  		current_property.Get.Block = (ToplevelBlock) yyVals[0+yyTop];			
@@ -3127,7 +3129,7 @@ case 230:
 	  }
   break;
 case 231:
-#line 2171 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2173 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[-1+yyTop] != ModifierNone && lang_version == LanguageVersion.ISO_1) {
 			FeatureIsNotAvailable (GetLocation (yyVals[-1+yyTop]), "access modifiers on properties");
@@ -3156,7 +3158,7 @@ case 231:
 	  }
   break;
 case 232:
-#line 2198 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2200 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] != null) {		
 			current_property.Set.Block = (ToplevelBlock) yyVals[0+yyTop];
@@ -3176,27 +3178,27 @@ case 232:
 	  }
   break;
 case 234:
-#line 2220 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2222 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		/* TODO: lbag*/
 	  	yyVal = null;
 	  }
   break;
 case 235:
-#line 2225 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2227 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Error_SyntaxError (1043, yyToken, "Invalid accessor body");
 	  	yyVal = null;
 	  }
   break;
 case 236:
-#line 2236 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2238 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = true;
 	  }
   break;
 case 237:
-#line 2240 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2242 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		MemberName name = MakeName ((MemberName) yyVals[0+yyTop]);
 		push_current_class (new Interface (current_namespace, current_class, name, (Modifiers) yyVals[-4+yyTop], (Attributes) yyVals[-5+yyTop]), yyVals[-3+yyTop]);
@@ -3204,7 +3206,7 @@ case 237:
 	  }
   break;
 case 238:
-#line 2247 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2249 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = false;
 
@@ -3219,7 +3221,7 @@ case 238:
 	  }
   break;
 case 239:
-#line 2260 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2262 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_declaration;	  
 		if (doc_support)
@@ -3227,67 +3229,67 @@ case 239:
 	  }
   break;
 case 240:
-#line 2266 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2268 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	    lbag.AppendToMember (current_class, GetLocation (yyVals[-4+yyTop]), GetLocation (yyVals[-2+yyTop]));
 		yyVal = pop_current_class ();
 	  }
   break;
 case 241:
-#line 2271 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2273 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);	  
 	  }
   break;
 case 244:
-#line 2283 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2285 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_modifiers = true;
 	  }
   break;
 case 245:
-#line 2287 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2289 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_modifiers = true;
 	  }
   break;
 case 246:
-#line 2294 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2296 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (525, GetLocation (yyVals[0+yyTop]), "Interfaces cannot contain fields or constants");
 	  }
   break;
 case 247:
-#line 2298 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2300 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (525, GetLocation (yyVals[0+yyTop]), "Interfaces cannot contain fields or constants");
 	  }
   break;
 case 252:
-#line 2306 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2308 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	report.Error (567, GetLocation (yyVals[0+yyTop]), "Interfaces cannot contain operators");
 	  }
   break;
 case 253:
-#line 2310 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2312 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	report.Error (526, GetLocation (yyVals[0+yyTop]), "Interfaces cannot contain contructors");
 	  }
   break;
 case 254:
-#line 2314 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2316 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	report.Error (524, GetLocation (yyVals[0+yyTop]), "Interfaces cannot declare classes, structs, interfaces, delegates, or enumerations");
 	  }
   break;
 case 255:
-#line 2321 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2323 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  }
   break;
 case 256:
-#line 2324 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2326 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		OperatorDeclaration decl = (OperatorDeclaration) yyVals[-2+yyTop];
 		if (decl != null) {
@@ -3314,24 +3316,24 @@ case 256:
 	  }
   break;
 case 258:
-#line 2352 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2354 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 260:
-#line 2358 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2360 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (590, GetLocation (yyVals[0+yyTop]), "User-defined operators cannot return void");
 		yyVal = new TypeExpression (compiler.BuiltinTypes.Void, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 261:
-#line 2366 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2368 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = ParameterModifierType.DefaultValue;
 	  }
   break;
 case 262:
-#line 2370 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2372 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = 0;
 
@@ -3373,101 +3375,101 @@ case 262:
 	  }
   break;
 case 264:
-#line 2414 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2416 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.LogicalNot; }
   break;
 case 265:
-#line 2415 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2417 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.OnesComplement; }
   break;
 case 266:
-#line 2416 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2418 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.Increment; }
   break;
 case 267:
-#line 2417 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2419 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.Decrement; }
   break;
 case 268:
-#line 2418 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2420 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.True; }
   break;
 case 269:
-#line 2419 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2421 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.False; }
   break;
 case 270:
-#line 2421 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2423 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.Addition; }
   break;
 case 271:
-#line 2422 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2424 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.Subtraction; }
   break;
 case 272:
-#line 2424 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2426 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.Multiply; }
   break;
 case 273:
-#line 2425 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2427 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {  yyVal = Operator.OpType.Division; }
   break;
 case 274:
-#line 2426 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2428 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.Modulus; }
   break;
 case 275:
-#line 2427 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2429 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.BitwiseAnd; }
   break;
 case 276:
-#line 2428 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2430 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.BitwiseOr; }
   break;
 case 277:
-#line 2429 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2431 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.ExclusiveOr; }
   break;
 case 278:
-#line 2430 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2432 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.LeftShift; }
   break;
 case 279:
-#line 2431 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2433 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.RightShift; }
   break;
 case 280:
-#line 2432 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2434 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.Equality; }
   break;
 case 281:
-#line 2433 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2435 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.Inequality; }
   break;
 case 282:
-#line 2434 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2436 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.GreaterThan; }
   break;
 case 283:
-#line 2435 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2437 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.LessThan; }
   break;
 case 284:
-#line 2436 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2438 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.GreaterThanOrEqual; }
   break;
 case 285:
-#line 2437 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2439 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = Operator.OpType.LessThanOrEqual; }
   break;
 case 286:
-#line 2442 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2444 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = ParameterModifierType.DefaultValue;
 	  }
   break;
 case 287:
-#line 2446 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2448 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = 0;
 
@@ -3484,13 +3486,13 @@ case 287:
 	  }
   break;
 case 288:
-#line 2461 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2463 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = ParameterModifierType.DefaultValue;
 	  }
   break;
 case 289:
-#line 2465 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2467 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = 0;
 		
@@ -3507,7 +3509,7 @@ case 289:
 	  }
   break;
 case 290:
-#line 2480 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2482 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Error_SyntaxError (yyToken);
 		current_local_parameters = ParametersCompiled.EmptyReadOnlyParameters;
@@ -3515,7 +3517,7 @@ case 290:
 	  }
   break;
 case 291:
-#line 2486 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2488 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Error_SyntaxError (yyToken);
 		current_local_parameters = ParametersCompiled.EmptyReadOnlyParameters;
@@ -3523,7 +3525,7 @@ case 291:
 	  }
   break;
 case 292:
-#line 2496 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2498 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		Constructor c = (Constructor) yyVals[-1+yyTop];
 		c.Block = (ToplevelBlock) yyVals[0+yyTop];
@@ -3540,7 +3542,7 @@ case 292:
 	  }
   break;
 case 293:
-#line 2516 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2518 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support) {
 			tmpComment = Lexer.consume_doc_comment ();
@@ -3551,7 +3553,7 @@ case 293:
 	  }
   break;
 case 294:
-#line 2525 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2527 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = 0;
 		current_local_parameters = (ParametersCompiled) yyVals[-1+yyTop];  
@@ -3564,7 +3566,7 @@ case 294:
 	  }
   break;
 case 295:
-#line 2536 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2538 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-6+yyTop];
 		var mods = (Modifiers) yyVals[-7+yyTop];
@@ -3594,17 +3596,17 @@ case 295:
 	  }
   break;
 case 297:
-#line 2567 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2569 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { current_block = null; yyVal = null; }
   break;
 case 300:
-#line 2577 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2579 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_block;
 	  }
   break;
 case 301:
-#line 2581 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2583 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	--lexer.parsing_block;
 		yyVal = new ConstructorBaseInitializer ((Arguments) yyVals[-1+yyTop], GetLocation (yyVals[-4+yyTop]));
@@ -3612,13 +3614,13 @@ case 301:
 	  }
   break;
 case 302:
-#line 2587 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2589 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_block;
 	  }
   break;
 case 303:
-#line 2591 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2593 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	--lexer.parsing_block;
 		yyVal = new ConstructorThisInitializer ((Arguments) yyVals[-1+yyTop], GetLocation (yyVals[-4+yyTop]));
@@ -3626,14 +3628,14 @@ case 303:
 	  }
   break;
 case 304:
-#line 2597 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2599 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = null;
 	  }
   break;
 case 305:
-#line 2605 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2607 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support) {
 			tmpComment = Lexer.consume_doc_comment ();
@@ -3644,7 +3646,7 @@ case 305:
 	  }
   break;
 case 306:
-#line 2614 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2616 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-3+yyTop];
 		if (lt.Value != current_container.MemberName.Name){
@@ -3666,7 +3668,7 @@ case 306:
 	  }
   break;
 case 307:
-#line 2639 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2641 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_event_field = new EventField (current_class, (FullNamedExpression) yyVals[-1+yyTop], (Modifiers) yyVals[-3+yyTop], (MemberName) yyVals[0+yyTop], (Attributes) yyVals[-4+yyTop]);
 		current_container.AddEvent (current_event_field);
@@ -3680,7 +3682,7 @@ case 307:
 	  }
   break;
 case 308:
-#line 2653 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2655 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support) {
 			current_event_field.DocComment = Lexer.consume_doc_comment ();
@@ -3692,7 +3694,7 @@ case 308:
 	  }
   break;
 case 309:
-#line 2666 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2668 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_event = new EventProperty (current_class, (FullNamedExpression) yyVals[-2+yyTop], (Modifiers) yyVals[-4+yyTop], (MemberName) yyVals[-1+yyTop], (Attributes) yyVals[-5+yyTop]);
 		current_container.AddEvent (current_event);
@@ -3702,7 +3704,7 @@ case 309:
 	  }
   break;
 case 310:
-#line 2674 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2676 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (current_container.Kind == MemberKind.Interface)
 			report.Error (69, GetLocation (yyVals[-2+yyTop]), "Event in interface cannot have add or remove accessors");
@@ -3711,7 +3713,7 @@ case 310:
 	  }
   break;
 case 311:
-#line 2681 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2683 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support) {
 			current_event.DocComment = Lexer.consume_doc_comment ();
@@ -3724,32 +3726,32 @@ case 311:
 	  }
   break;
 case 313:
-#line 2696 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2698 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	++lexer.parsing_block;
 	  }
   break;
 case 314:
-#line 2700 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2702 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	--lexer.parsing_block;
 		current_event_field.Initializer = (Expression) yyVals[0+yyTop];
 	  }
   break;
 case 317:
-#line 2713 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2715 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_event_field.AddDeclarator ((FieldDeclarator) yyVals[0+yyTop]);
 	  }
   break;
 case 318:
-#line 2717 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2719 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_event_field.AddDeclarator ((FieldDeclarator) yyVals[0+yyTop]);
 	  }
   break;
 case 319:
-#line 2724 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2726 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 	  	yyVal = new FieldDeclarator (new SimpleMemberName (lt.Value, lt.Location), null);
@@ -3757,13 +3759,13 @@ case 319:
 	  }
   break;
 case 320:
-#line 2730 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2732 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_block;
 	  }
   break;
 case 321:
-#line 2734 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2736 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_block;
 		var lt = (Tokenizer.LocatedToken) yyVals[-3+yyTop];	  
@@ -3772,7 +3774,7 @@ case 321:
 	  }
   break;
 case 322:
-#line 2743 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2745 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (current_container.Kind == MemberKind.Interface) {
 			report.Error (68, lexer.Location, "`{0}': event in interface cannot have an initializer",
@@ -3786,34 +3788,34 @@ case 322:
 	  }
   break;
 case 323:
-#line 2755 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2757 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[0+yyTop];
 	  }
   break;
 case 326:
-#line 2764 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2766 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (65, lexer.Location, "`{0}': event property must have both add and remove accessors",
 			current_event.GetSignatureForError ());
 	  }
   break;
 case 327:
-#line 2769 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2771 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (65, lexer.Location, "`{0}': event property must have both add and remove accessors",
 			current_event.GetSignatureForError ());
 	  }
   break;
 case 328:
-#line 2774 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2776 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		report.Error (1055, GetLocation (yyVals[0+yyTop]), "An add or remove accessor expected");
 		yyVal = null;
 	  }
   break;
 case 329:
-#line 2782 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2784 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if (yyVals[-1+yyTop] != ModifierNone) {
 			report.Error (1609, GetLocation (yyVals[-1+yyTop]), "Modifiers cannot be placed on event accessor declarations");
@@ -3827,7 +3829,7 @@ case 329:
 	  }
   break;
 case 330:
-#line 2794 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2796 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.EventParsing = true;
 	  
@@ -3842,7 +3844,7 @@ case 330:
 	  }
   break;
 case 331:
-#line 2810 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2812 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if (yyVals[-1+yyTop] != ModifierNone) {
 			report.Error (1609, GetLocation (yyVals[-1+yyTop]), "Modifiers cannot be placed on event accessor declarations");
@@ -3856,7 +3858,7 @@ case 331:
 	  }
   break;
 case 332:
-#line 2822 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2824 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.EventParsing = true;
 	  
@@ -3871,21 +3873,21 @@ case 332:
 	  }
   break;
 case 333:
-#line 2838 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2840 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (73, lexer.Location, "An add or remove accessor must have a body");
 		yyVal = null;
 	  }
   break;
 case 335:
-#line 2850 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2852 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			enumTypeComment = Lexer.consume_doc_comment ();
 	  }
   break;
 case 336:
-#line 2855 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2857 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			Lexer.doc_state = XmlCommentState.Allowed;
@@ -3899,7 +3901,7 @@ case 336:
 	  }
   break;
 case 337:
-#line 2867 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2869 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	/* here will be evaluated after CLOSE_BLACE is consumed.*/
 		if (doc_support)
@@ -3907,7 +3909,7 @@ case 337:
 	  }
   break;
 case 338:
-#line 2873 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2875 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support)
 			current_class.DocComment = enumTypeComment;
@@ -3922,7 +3924,7 @@ case 338:
 	  }
   break;
 case 340:
-#line 2890 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2892 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	 	var te = yyVals[0+yyTop] as TypeExpression;
 		if (te == null || !EnumSpec.IsValidUnderlyingType (te.Type)) {
@@ -3934,27 +3936,27 @@ case 340:
 	 }
   break;
 case 341:
-#line 2900 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2902 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	 	Error_TypeExpected (GetLocation (yyVals[-1+yyTop]));
 		yyVal = null;
 	 }
   break;
 case 344:
-#line 2910 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2912 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	lbag.AddLocation (yyVals[-1+yyTop], GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 346:
-#line 2918 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2920 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	lbag.AddLocation (yyVals[-2+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  	yyVal = yyVals[0+yyTop];
 	  }
   break;
 case 347:
-#line 2926 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2928 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 	  	var em = new EnumMember ((Enum) current_class, new MemberName (lt.Value, lt.Location), (Attributes) yyVals[-1+yyTop]);
@@ -3969,7 +3971,7 @@ case 347:
 	  }
   break;
 case 348:
-#line 2939 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2941 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	++lexer.parsing_block;
 		if (doc_support) {
@@ -3979,7 +3981,7 @@ case 348:
 	  }
   break;
 case 349:
-#line 2947 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2949 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		--lexer.parsing_block;
 		
@@ -3995,13 +3997,13 @@ case 349:
 	  }
   break;
 case 350:
-#line 2968 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2970 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = ParameterModifierType.Ref | ParameterModifierType.Out | ParameterModifierType.Params | ParameterModifierType.DefaultValue;
 	  }
   break;
 case 351:
-#line 2972 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2974 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = 0;
 
@@ -4019,13 +4021,13 @@ case 351:
 	  }
   break;
 case 352:
-#line 2988 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2990 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = false;
 	  }
   break;
 case 353:
-#line 2992 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 2994 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (doc_support) {
 			current_delegate.DocComment = Lexer.consume_doc_comment ();
@@ -4041,7 +4043,7 @@ case 353:
 	  }
   break;
 case 355:
-#line 3010 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3012 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version < LanguageVersion.ISO_2)
 			FeatureIsNotAvailable (GetLocation (yyVals[0+yyTop]), "nullable types");
@@ -4050,7 +4052,7 @@ case 355:
 	  }
   break;
 case 357:
-#line 3021 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3023 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt1 = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
 		var lt2 = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
@@ -4059,7 +4061,7 @@ case 357:
 	  }
   break;
 case 359:
-#line 3032 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3034 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		yyVal = new MemberName ((MemberName) yyVals[-3+yyTop], lt.Value, (TypeArguments) yyVals[0+yyTop], lt.Location);
@@ -4067,14 +4069,14 @@ case 359:
 	  }
   break;
 case 360:
-#line 3041 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3043 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		yyVal = new MemberName (lt.Value, (TypeArguments)yyVals[0+yyTop], lt.Location);	  
 	  }
   break;
 case 362:
-#line 3053 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3055 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version < LanguageVersion.ISO_2)
 			FeatureIsNotAvailable (GetLocation (yyVals[-2+yyTop]), "generics");	  
@@ -4083,14 +4085,14 @@ case 362:
 	  }
   break;
 case 363:
-#line 3060 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3062 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_TypeExpected (lexer.Location);
 		yyVal = new TypeArguments ();
 	  }
   break;
 case 364:
-#line 3068 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3070 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		TypeArguments type_args = new TypeArguments ();
 		type_args.Add ((FullNamedExpression) yyVals[0+yyTop]);
@@ -4098,7 +4100,7 @@ case 364:
 	  }
   break;
 case 365:
-#line 3074 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3076 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		TypeArguments type_args = (TypeArguments) yyVals[-2+yyTop];
 		type_args.Add ((FullNamedExpression) yyVals[0+yyTop]);
@@ -4106,13 +4108,13 @@ case 365:
 	  }
   break;
 case 366:
-#line 3086 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3088 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_generic_declaration = true;
 	  }
   break;
 case 367:
-#line 3090 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3092 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_generic_declaration = false;
 		var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
@@ -4120,7 +4122,7 @@ case 367:
 	  }
   break;
 case 368:
-#line 3099 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3101 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	MemberName mn = (MemberName)yyVals[0+yyTop];
 	  	if (mn.TypeArguments != null)
@@ -4129,7 +4131,7 @@ case 368:
 	  }
   break;
 case 370:
-#line 3110 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3112 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_generic_declaration = false;	  
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
@@ -4137,21 +4139,21 @@ case 370:
 	  }
   break;
 case 371:
-#line 3119 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3121 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_generic_declaration = false;	  
 		yyVal = new MemberName (TypeContainer.DefaultIndexerName, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 372:
-#line 3124 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3126 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_generic_declaration = false;
 		yyVal = new MemberName ((MemberName) yyVals[-1+yyTop], TypeContainer.DefaultIndexerName, null, GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 373:
-#line 3132 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3134 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
 		yyVal = new MemberName (lt.Value, (TypeArguments) yyVals[-1+yyTop], lt.Location);
@@ -4159,7 +4161,7 @@ case 373:
 	  }
   break;
 case 374:
-#line 3138 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3140 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt1 = (Tokenizer.LocatedToken) yyVals[-3+yyTop];
 		var lt2 = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
@@ -4169,7 +4171,7 @@ case 374:
 	  }
   break;
 case 375:
-#line 3146 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3148 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
 		yyVal = new MemberName ((MemberName) yyVals[-3+yyTop], lt.Value, (TypeArguments) yyVals[-1+yyTop], lt.Location);
@@ -4177,7 +4179,7 @@ case 375:
 	  }
   break;
 case 377:
-#line 3156 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3158 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version < LanguageVersion.ISO_2)
 			FeatureIsNotAvailable (GetLocation (yyVals[-2+yyTop]), "generics");
@@ -4187,7 +4189,7 @@ case 377:
 	  }
   break;
 case 378:
-#line 3167 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3169 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		TypeArguments type_args = new TypeArguments ();
 		type_args.Add ((FullNamedExpression)yyVals[0+yyTop]);
@@ -4195,7 +4197,7 @@ case 378:
 	  }
   break;
 case 379:
-#line 3173 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3175 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		TypeArguments type_args = (TypeArguments) yyVals[-2+yyTop];
 		type_args.Add ((FullNamedExpression)yyVals[0+yyTop]);
@@ -4204,14 +4206,14 @@ case 379:
 	  }
   break;
 case 380:
-#line 3183 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3185 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken)yyVals[0+yyTop];
 		yyVal = new TypeParameterName (lt.Value, (Attributes)yyVals[-2+yyTop], (Variance) yyVals[-1+yyTop], lt.Location);
   	  }
   break;
 case 381:
-#line 3188 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3190 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
   	  	if (GetTokenName (yyToken) == "type")
 			report.Error (81, GetLocation (yyVals[0+yyTop]), "Type parameter declaration must be an identifier not a type");
@@ -4222,46 +4224,46 @@ case 381:
   	  }
   break;
 case 383:
-#line 3204 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3206 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new TypeExpression (compiler.BuiltinTypes.Void, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 384:
-#line 3211 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3213 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_generic_declaration = true;
 	  }
   break;
 case 386:
-#line 3222 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3224 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Expression.Error_VoidInvalidInTheContext (GetLocation (yyVals[0+yyTop]), report);
 		yyVal = new TypeExpression (compiler.BuiltinTypes.Void, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 388:
-#line 3231 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3233 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Expression.Error_VoidInvalidInTheContext (GetLocation (yyVals[0+yyTop]), report);
 		yyVal = new TypeExpression (compiler.BuiltinTypes.Void, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 390:
-#line 3240 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3242 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	report.Error (1536, GetLocation (yyVals[0+yyTop]), "Invalid parameter type `void'");
 		yyVal = new TypeExpression (compiler.BuiltinTypes.Void, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 392:
-#line 3249 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3251 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ComposedCast ((FullNamedExpression) yyVals[-1+yyTop], (ComposedTypeSpecifier) yyVals[0+yyTop]);
 	  }
   break;
 case 393:
-#line 3256 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3258 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		MemberName name = (MemberName) yyVals[-1+yyTop];
 
@@ -4276,32 +4278,32 @@ case 393:
 	  }
   break;
 case 394:
-#line 3269 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3271 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ComposedCast (((MemberName) yyVals[-1+yyTop]).GetTypeExpression (), (ComposedTypeSpecifier) yyVals[0+yyTop]);
 	  }
   break;
 case 395:
-#line 3273 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3275 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] != null)
 			yyVal = new ComposedCast ((FullNamedExpression) yyVals[-1+yyTop], (ComposedTypeSpecifier) yyVals[0+yyTop]);
 	  }
   break;
 case 396:
-#line 3278 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3280 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ComposedCast ((FullNamedExpression) yyVals[-1+yyTop], (ComposedTypeSpecifier) yyVals[0+yyTop]);
 	  }
   break;
 case 397:
-#line 3282 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3284 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ComposedCast (new TypeExpression (compiler.BuiltinTypes.Void, GetLocation (yyVals[-1+yyTop])), (ComposedTypeSpecifier) yyVals[0+yyTop]);
 	  }
   break;
 case 398:
-#line 3289 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3291 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var types = new List<FullNamedExpression> (2);
 		types.Add ((FullNamedExpression) yyVals[0+yyTop]);
@@ -4309,7 +4311,7 @@ case 398:
 	  }
   break;
 case 399:
-#line 3295 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3297 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var types = (List<FullNamedExpression>) yyVals[-2+yyTop];
 		types.Add ((FullNamedExpression) yyVals[0+yyTop]);
@@ -4317,7 +4319,7 @@ case 399:
 	  }
   break;
 case 400:
-#line 3304 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3306 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] is ComposedCast) {
 			report.Error (1521, GetLocation (yyVals[0+yyTop]), "Invalid base type `{0}'", ((ComposedCast)yyVals[0+yyTop]).GetSignatureForError ());
@@ -4326,119 +4328,119 @@ case 400:
 	  }
   break;
 case 401:
-#line 3311 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3313 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Error_TypeExpected (lexer.Location);
 		yyVal = null;
 	  }
   break;
 case 402:
-#line 3322 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3324 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.Object, GetLocation (yyVals[0+yyTop])); }
   break;
 case 403:
-#line 3323 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3325 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.String, GetLocation (yyVals[0+yyTop])); }
   break;
 case 404:
-#line 3324 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3326 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.Bool, GetLocation (yyVals[0+yyTop])); }
   break;
 case 405:
-#line 3325 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3327 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.Decimal, GetLocation (yyVals[0+yyTop])); }
   break;
 case 406:
-#line 3326 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3328 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.Float, GetLocation (yyVals[0+yyTop])); }
   break;
 case 407:
-#line 3327 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3329 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.Double, GetLocation (yyVals[0+yyTop])); }
   break;
 case 409:
-#line 3332 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3334 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.SByte, GetLocation (yyVals[0+yyTop])); }
   break;
 case 410:
-#line 3333 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3335 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.Byte, GetLocation (yyVals[0+yyTop])); }
   break;
 case 411:
-#line 3334 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3336 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.Short, GetLocation (yyVals[0+yyTop])); }
   break;
 case 412:
-#line 3335 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3337 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.UShort, GetLocation (yyVals[0+yyTop])); }
   break;
 case 413:
-#line 3336 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3338 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.Int, GetLocation (yyVals[0+yyTop])); }
   break;
 case 414:
-#line 3337 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3339 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.UInt, GetLocation (yyVals[0+yyTop])); }
   break;
 case 415:
-#line 3338 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3340 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.Long, GetLocation (yyVals[0+yyTop])); }
   break;
 case 416:
-#line 3339 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3341 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.ULong, GetLocation (yyVals[0+yyTop])); }
   break;
 case 417:
-#line 3340 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3342 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new TypeExpression (compiler.BuiltinTypes.Char, GetLocation (yyVals[0+yyTop])); }
   break;
 case 418:
-#line 3350 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3352 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	   checkForInteraction((Expression)yyVals[0+yyTop]);
 	}
   break;
 case 439:
-#line 3380 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3382 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		yyVal = new SimpleName (lt.Value, (TypeArguments)yyVals[0+yyTop], lt.Location);	  
 	  }
   break;
 case 440:
-#line 3384 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3386 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 	       yyVal = new CompletionSimpleName (MemberName.MakeName (lt.Value, null), lt.Location);
 	  }
   break;
 case 444:
-#line 3394 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3396 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new NullLiteral (GetLocation (yyVals[0+yyTop])); }
   break;
 case 445:
-#line 3398 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3400 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new BoolLiteral (compiler.BuiltinTypes, true, GetLocation (yyVals[0+yyTop])); }
   break;
 case 446:
-#line 3399 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3401 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new BoolLiteral (compiler.BuiltinTypes, false, GetLocation (yyVals[0+yyTop])); }
   break;
 case 451:
-#line 3425 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3427 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ParenthesizedExpression ((Expression) yyVals[-1+yyTop]);
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 452:
-#line 3430 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3432 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ParenthesizedExpression ((Expression) yyVals[-1+yyTop]);
 	  }
   break;
 case 453:
-#line 3437 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3439 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		yyVal = new MemberAccess ((Expression) yyVals[-3+yyTop], lt.Value, (TypeArguments) yyVals[0+yyTop], lt.Location);
@@ -4446,7 +4448,7 @@ case 453:
 	  }
   break;
 case 454:
-#line 3443 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3445 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		yyVal = new MemberAccess ((Expression) yyVals[-3+yyTop], lt.Value, (TypeArguments) yyVals[0+yyTop], lt.Location);
@@ -4454,7 +4456,7 @@ case 454:
 	  }
   break;
 case 455:
-#line 3449 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3451 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		yyVal = new MemberAccess (new BaseThis (GetLocation (yyVals[-3+yyTop])), lt.Value, (TypeArguments) yyVals[0+yyTop], lt.Location);
@@ -4462,7 +4464,7 @@ case 455:
 	  }
   break;
 case 456:
-#line 3455 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3457 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt1 = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
 		var lt2 = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
@@ -4471,45 +4473,45 @@ case 456:
 	  }
   break;
 case 457:
-#line 3461 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3463 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompletionMemberAccess ((Expression) yyVals[-2+yyTop], null,GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 458:
-#line 3464 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3466 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		yyVal = new CompletionMemberAccess ((Expression) yyVals[-3+yyTop], lt.Value, lt.Location);
 	  }
   break;
 case 459:
-#line 3469 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3471 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompletionMemberAccess ((Expression) yyVals[-2+yyTop], null, lexer.Location);
 	  }
   break;
 case 460:
-#line 3472 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3474 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		yyVal = new CompletionMemberAccess ((Expression) yyVals[-3+yyTop], lt.Value, lt.Location);
  	  }
   break;
 case 461:
-#line 3480 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3482 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		 isInteractionArgumentList = isInteraction;
 	  }
   break;
 case 462:
-#line 3484 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3486 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	    isInteractionArgumentList = false;
 	  }
   break;
 case 463:
-#line 3488 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3490 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 	    var instance = (Expression) yyVals[-5+yyTop]; 
 	    var arguments =  (Arguments) yyVals[-2+yyTop]; 
@@ -4519,11 +4521,11 @@ case 463:
 	  }
   break;
 case 464:
-#line 3498 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3500 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 466:
-#line 3504 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3506 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if (yyVals[-1+yyTop] == null) {
 	  		yyVal = CollectionOrObjectInitializers.Empty;
@@ -4535,24 +4537,24 @@ case 466:
 	  }
   break;
 case 467:
-#line 3514 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3516 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	yyVal = new CollectionOrObjectInitializers ((List<Expression>) yyVals[-2+yyTop], GetLocation (yyVals[-3+yyTop]));
 	  	lbag.AddLocation (yyVal, GetLocation (yyVals[-1+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 468:
-#line 3521 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3523 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 469:
-#line 3523 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3525 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[0+yyTop];
 	}
   break;
 case 470:
-#line 3530 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3532 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	var a = new List<Expression> ();
 	  	a.Add ((Expression) yyVals[0+yyTop]);
@@ -4560,7 +4562,7 @@ case 470:
 	  }
   break;
 case 471:
-#line 3536 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3538 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	var a = (List<Expression>)yyVals[-2+yyTop];
 	  	a.Add ((Expression) yyVals[0+yyTop]);
@@ -4568,14 +4570,14 @@ case 471:
 	  }
   break;
 case 472:
-#line 3541 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3543 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Error_SyntaxError (yyToken);
 		yyVal = yyVals[-1+yyTop];
 	  }
   break;
 case 473:
-#line 3549 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3551 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
 	  	yyVal = new ElementInitializer (lt.Value, (Expression)yyVals[0+yyTop], lt.Location);
@@ -4583,13 +4585,13 @@ case 473:
 	  }
   break;
 case 474:
-#line 3555 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3557 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompletionElementInitializer (null, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 475:
-#line 3558 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3560 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		CompletionSimpleName csn = yyVals[-1+yyTop] as CompletionSimpleName;
 		if (csn == null)
@@ -4599,7 +4601,7 @@ case 475:
 	  }
   break;
 case 476:
-#line 3566 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3568 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[-1+yyTop] == null)
 			yyVal = null;
@@ -4608,18 +4610,18 @@ case 476:
 	  }
   break;
 case 477:
-#line 3573 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3575 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	report.Error (1920, GetLocation (yyVals[-1+yyTop]), "An element initializer cannot be empty");
 		yyVal = null;
 	  }
   break;
 case 480:
-#line 3585 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3587 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 482:
-#line 3591 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3593 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		Arguments list = new Arguments (4);
 		list.Add ((Argument) yyVals[0+yyTop]);
@@ -4627,7 +4629,7 @@ case 482:
 	  }
   break;
 case 483:
-#line 3597 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3599 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Arguments list = (Arguments) yyVals[-2+yyTop];
 		if (list [list.Count - 1] is NamedArgument)
@@ -4638,7 +4640,7 @@ case 483:
 	  }
   break;
 case 484:
-#line 3606 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3608 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Arguments list = (Arguments) yyVals[-2+yyTop];
 		NamedArgument a = (NamedArgument) yyVals[0+yyTop];
@@ -4654,62 +4656,62 @@ case 484:
 	  }
   break;
 case 485:
-#line 3620 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3622 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	report.Error (839, GetLocation (yyVals[0+yyTop]), "An argument is missing");
 	  	yyVal = yyVals[-1+yyTop];
 	  }
   break;
 case 486:
-#line 3625 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3627 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	report.Error (839, GetLocation (yyVals[-1+yyTop]), "An argument is missing");
 	  	yyVal = null;
 	  }
   break;
 case 487:
-#line 3633 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3635 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Argument ((Expression) yyVals[0+yyTop]);
 	  }
   break;
 case 491:
-#line 3646 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3648 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		yyVal = new Argument ((Expression) yyVals[0+yyTop], Argument.AType.Ref);
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 492:
-#line 3651 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3653 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		yyVal = new Argument ((Expression) yyVals[0+yyTop], Argument.AType.Out);
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 493:
-#line 3656 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3658 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Argument (new Arglist ((Arguments) yyVals[-1+yyTop], GetLocation (yyVals[-3+yyTop])));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 494:
-#line 3661 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3663 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Argument (new Arglist (GetLocation (yyVals[-2+yyTop])));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-1+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 496:
-#line 3673 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3675 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ElementAccess ((Expression) yyVals[-3+yyTop], (Arguments) yyVals[-1+yyTop], GetLocation (yyVals[-2+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 497:
-#line 3681 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3683 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var list = new List<Expression> (4);
 		list.Add ((Expression) yyVals[0+yyTop]);
@@ -4717,7 +4719,7 @@ case 497:
 	  }
   break;
 case 498:
-#line 3687 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3689 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var list = (List<Expression>) yyVals[-2+yyTop];
 		list.Add ((Expression) yyVals[0+yyTop]);
@@ -4725,14 +4727,14 @@ case 498:
 	  }
   break;
 case 499:
-#line 3692 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3694 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Error_SyntaxError (yyToken);
 		yyVal = yyVals[-1+yyTop];
 	  }
   break;
 case 500:
-#line 3700 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3702 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Arguments args = new Arguments (4);
 		args.Add ((Argument) yyVals[0+yyTop]);
@@ -4740,7 +4742,7 @@ case 500:
 	  }
   break;
 case 501:
-#line 3706 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3708 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Arguments args = (Arguments) yyVals[-2+yyTop];
 		if (args [args.Count - 1] is NamedArgument && !(yyVals[0+yyTop] is NamedArgument))
@@ -4751,45 +4753,49 @@ case 501:
 	  }
   break;
 case 502:
-#line 3718 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3720 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	yyVal = new Argument ((Expression) yyVals[0+yyTop]);
 	  }
   break;
 case 504:
-#line 3726 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3728 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
+	    if(isRoleMethod) {
+		    report.Error (10077, lexer.Location,
+			"Can't use this explicitly in role methods. Use self or role name to refer to the role");
+		}
 		yyVal = new This (GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 505:
-#line 3733 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3739 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	yyVal = new ElementAccess (new BaseThis (GetLocation (yyVals[-3+yyTop])), (Arguments) yyVals[-1+yyTop], GetLocation (yyVals[-2+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 506:
-#line 3738 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3744 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Error_SyntaxError (yyToken);
 		yyVal = new ElementAccess (null, null, GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 507:
-#line 3746 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3752 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new UnaryMutator (UnaryMutator.Mode.PostIncrement, (Expression) yyVals[-1+yyTop], GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 508:
-#line 3753 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3759 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new UnaryMutator (UnaryMutator.Mode.PostDecrement, (Expression) yyVals[-1+yyTop], GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 509:
-#line 3760 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3766 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] != null) {
 			if (lang_version <= LanguageVersion.ISO_2)
@@ -4804,7 +4810,7 @@ case 509:
 	  }
   break;
 case 510:
-#line 3773 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3779 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version <= LanguageVersion.ISO_2)
 			FeatureIsNotAvailable (GetLocation (yyVals[-2+yyTop]), "collection initializers");
@@ -4813,7 +4819,7 @@ case 510:
 	  }
   break;
 case 511:
-#line 3785 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3791 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ArrayCreation ((FullNamedExpression) yyVals[-5+yyTop], (List<Expression>) yyVals[-3+yyTop],
 				new ComposedTypeSpecifier (((List<Expression>) yyVals[-3+yyTop]).Count, GetLocation (yyVals[-4+yyTop])) {
@@ -4823,7 +4829,7 @@ case 511:
 	  }
   break;
 case 512:
-#line 3793 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3799 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if (yyVals[0+yyTop] == null)
 	  		report.Error (1586, GetLocation (yyVals[-3+yyTop]), "Array creation must have array size or array initializer");
@@ -4832,7 +4838,7 @@ case 512:
 	  }
   break;
 case 513:
-#line 3800 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3806 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version <= LanguageVersion.ISO_2)
 			FeatureIsNotAvailable (GetLocation (yyVals[-2+yyTop]), "implicitly typed arrays");
@@ -4841,34 +4847,34 @@ case 513:
 	  }
   break;
 case 514:
-#line 3807 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3813 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (178, GetLocation (yyVals[-1+yyTop]), "Invalid rank specifier, expecting `,' or `]'");
 		yyVal = new ArrayCreation ((FullNamedExpression) yyVals[-5+yyTop], null, GetLocation (yyVals[-6+yyTop]));
 	  }
   break;
 case 515:
-#line 3812 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3818 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (1526, yyToken, "Unexpected symbol");
 		yyVal = new ArrayCreation ((FullNamedExpression) yyVals[-1+yyTop], null, GetLocation (yyVals[-2+yyTop]));
 	  }
   break;
 case 516:
-#line 3819 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3825 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_type;
 	  }
   break;
 case 517:
-#line 3823 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3829 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_type;
 		yyVal = yyVals[0+yyTop];
 	  }
   break;
 case 518:
-#line 3831 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3837 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version <= LanguageVersion.ISO_2)
 	  		FeatureIsNotAvailable (GetLocation (yyVals[-3+yyTop]), "anonymous types");
@@ -4880,11 +4886,11 @@ case 518:
 	  }
   break;
 case 521:
-#line 3848 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3854 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 523:
-#line 3854 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3860 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	var a = new List<AnonymousTypeParameter> (4);
 	  	a.Add ((AnonymousTypeParameter) yyVals[0+yyTop]);
@@ -4892,7 +4898,7 @@ case 523:
 	  }
   break;
 case 524:
-#line 3860 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3866 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	var a = (List<AnonymousTypeParameter>) yyVals[-2+yyTop];
 	  	a.Add ((AnonymousTypeParameter) yyVals[0+yyTop]);
@@ -4900,7 +4906,7 @@ case 524:
 	  }
   break;
 case 525:
-#line 3869 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3875 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken)yyVals[-2+yyTop];
 	  	yyVal = new AnonymousTypeParameter ((Expression)yyVals[0+yyTop], lt.Value, lt.Location);
@@ -4908,7 +4914,7 @@ case 525:
 	  }
   break;
 case 526:
-#line 3875 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3881 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken)yyVals[0+yyTop];
 	  	yyVal = new AnonymousTypeParameter (new SimpleName (lt.Value, lt.Location),
@@ -4916,14 +4922,14 @@ case 526:
 	  }
   break;
 case 527:
-#line 3881 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3887 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	MemberAccess ma = (MemberAccess) yyVals[0+yyTop];
 	  	yyVal = new AnonymousTypeParameter (ma, ma.Name, ma.Location);
 	  }
   break;
 case 528:
-#line 3886 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3892 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (746, lexer.Location,
 			"Invalid anonymous type member declarator. Anonymous type members must be a member assignment, simple name or member access expression");
@@ -4931,52 +4937,52 @@ case 528:
 	  }
   break;
 case 532:
-#line 3901 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3907 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	((ComposedTypeSpecifier) yyVals[-1+yyTop]).Next = (ComposedTypeSpecifier) yyVals[0+yyTop];
 	  	yyVal = yyVals[-1+yyTop];
 	  }
   break;
 case 533:
-#line 3909 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3915 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = ComposedTypeSpecifier.CreateArrayDimension (1, GetLocation (yyVals[-1+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 534:
-#line 3914 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3920 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = ComposedTypeSpecifier.CreateArrayDimension ((int)yyVals[-1+yyTop], GetLocation (yyVals[-2+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 535:
-#line 3922 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3928 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = 2;
 	  }
   break;
 case 536:
-#line 3926 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3932 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = ((int) yyVals[-1+yyTop]) + 1;
 	  }
   break;
 case 537:
-#line 3933 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3939 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = null;
 	  }
   break;
 case 538:
-#line 3937 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3943 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[0+yyTop];
 	  }
   break;
 case 539:
-#line 3944 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3950 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var ai = new ArrayInitializer (0, GetLocation (yyVals[-1+yyTop]));
 		ai.VariableDeclaration = current_variable;
@@ -4985,7 +4991,7 @@ case 539:
 	  }
   break;
 case 540:
-#line 3951 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3957 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var ai = new ArrayInitializer ((List<Expression>) yyVals[-2+yyTop], GetLocation (yyVals[-3+yyTop]));
 		ai.VariableDeclaration = current_variable;
@@ -4998,7 +5004,7 @@ case 540:
 	  }
   break;
 case 541:
-#line 3965 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3971 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var list = new List<Expression> (4);
 		list.Add ((Expression) yyVals[0+yyTop]);
@@ -5006,7 +5012,7 @@ case 541:
 	  }
   break;
 case 542:
-#line 3971 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3977 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var list = (List<Expression>) yyVals[-2+yyTop];
 		list.Add ((Expression) yyVals[0+yyTop]);
@@ -5014,13 +5020,13 @@ case 542:
 	  }
   break;
 case 543:
-#line 3980 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3986 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	lexer.TypeOfParsing = true;
 	  }
   break;
 case 544:
-#line 3984 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 3990 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	lexer.TypeOfParsing = false;
 		yyVal = new TypeOf ((FullNamedExpression) yyVals[-1+yyTop], GetLocation (yyVals[-4+yyTop]));
@@ -5028,14 +5034,14 @@ case 544:
 	  }
   break;
 case 547:
-#line 3995 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4001 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	 	Error_TypeExpected (lexer.Location);
 	 	yyVal = null;
 	 }
   break;
 case 548:
-#line 4003 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4009 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {  
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 
@@ -5043,7 +5049,7 @@ case 548:
 	  }
   break;
 case 549:
-#line 4009 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4015 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt1 = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
 		var lt2 = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
@@ -5052,7 +5058,7 @@ case 549:
 	  }
   break;
 case 550:
-#line 4016 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4022 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		
@@ -5060,7 +5066,7 @@ case 550:
 	  }
   break;
 case 551:
-#line 4022 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4028 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		
@@ -5068,7 +5074,7 @@ case 551:
 	  }
   break;
 case 552:
-#line 4028 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4034 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var te = ((MemberName) yyVals[-3+yyTop]).GetTypeExpression ();
 		if (te.HasTypeArguments)
@@ -5079,7 +5085,7 @@ case 552:
 	  }
   break;
 case 553:
-#line 4040 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4046 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version < LanguageVersion.ISO_2)
 			FeatureIsNotAvailable (GetLocation (yyVals[0+yyTop]), "generics");
@@ -5088,7 +5094,7 @@ case 553:
 	  }
   break;
 case 554:
-#line 4050 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4056 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		if (lang_version == LanguageVersion.ISO_1)
@@ -5098,78 +5104,78 @@ case 554:
 	  }
   break;
 case 555:
-#line 4061 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4067 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		yyVal = new SizeOf ((Expression) yyVals[-1+yyTop], GetLocation (yyVals[-3+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 556:
-#line 4069 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4075 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CheckedExpr ((Expression) yyVals[-1+yyTop], GetLocation (yyVals[-3+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 557:
-#line 4077 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4083 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new UnCheckedExpr ((Expression) yyVals[-1+yyTop], GetLocation (yyVals[-3+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 558:
-#line 4085 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4091 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		yyVal = new MemberAccess (new Indirection ((Expression) yyVals[-3+yyTop], GetLocation (yyVals[-2+yyTop])), lt.Value, (TypeArguments) yyVals[0+yyTop], lt.Location);
 	  }
   break;
 case 559:
-#line 4093 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4099 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		start_anonymous (false, (ParametersCompiled) yyVals[0+yyTop], false, GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 560:
-#line 4097 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4103 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = end_anonymous ((ParametersBlock) yyVals[0+yyTop]);
 	  }
   break;
 case 561:
-#line 4101 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4107 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		start_anonymous (false, (ParametersCompiled) yyVals[0+yyTop], true, GetLocation (yyVals[-2+yyTop]));
 	  }
   break;
 case 562:
-#line 4105 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4111 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = end_anonymous ((ParametersBlock) yyVals[0+yyTop]);
 	  }
   break;
 case 563:
-#line 4112 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4118 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = ParametersCompiled.Undefined;
 	  }
   break;
 case 565:
-#line 4120 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4126 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	valid_param_mod = ParameterModifierType.Ref | ParameterModifierType.Out;
 	  }
   break;
 case 566:
-#line 4124 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4130 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = 0;
 	  	yyVal = yyVals[-1+yyTop];
 	  }
   break;
 case 567:
-#line 4132 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4138 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version < LanguageVersion.ISO_2)
 			FeatureIsNotAvailable (GetLocation (yyVals[-3+yyTop]), "default value expression");
@@ -5179,26 +5185,26 @@ case 567:
 	  }
   break;
 case 569:
-#line 4144 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4150 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Unary (Unary.Operator.LogicalNot, (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 570:
-#line 4148 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4154 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Unary (Unary.Operator.OnesComplement, (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 571:
-#line 4152 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4158 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Cast ((FullNamedExpression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-3+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 572:
-#line 4157 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4163 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (!async_block) {
 			report.Error (1992, GetLocation (yyVals[-1+yyTop]),
@@ -5211,187 +5217,187 @@ case 572:
 	  }
   break;
 case 574:
-#line 4176 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4182 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 	  	yyVal = new Unary (Unary.Operator.UnaryPlus, (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 575:
-#line 4180 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4186 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		yyVal = new Unary (Unary.Operator.UnaryNegation, (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 576:
-#line 4184 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4190 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new UnaryMutator (UnaryMutator.Mode.PreIncrement, (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 577:
-#line 4188 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4194 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new UnaryMutator (UnaryMutator.Mode.PreDecrement, (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 578:
-#line 4192 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4198 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Indirection ((Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 579:
-#line 4196 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4202 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Unary (Unary.Operator.AddressOf, (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 581:
-#line 4204 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4210 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.Multiply, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 582:
-#line 4209 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4215 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.Division, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 583:
-#line 4214 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4220 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.Modulus, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 585:
-#line 4223 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4229 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.Addition, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 586:
-#line 4228 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4234 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.Subtraction, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 587:
-#line 4232 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4238 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	/* Shift/Reduce conflict*/
 		yyVal = new Binary (Binary.Operator.Subtraction, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
   	  }
   break;
 case 588:
-#line 4237 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4243 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new As ((Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 589:
-#line 4241 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4247 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Is ((Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 591:
-#line 4249 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4255 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.LeftShift, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 592:
-#line 4254 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4260 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.RightShift, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 594:
-#line 4263 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4269 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.LessThan, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 595:
-#line 4268 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4274 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.GreaterThan, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 596:
-#line 4273 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4279 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.LessThanOrEqual, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 597:
-#line 4278 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4284 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.GreaterThanOrEqual, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 599:
-#line 4287 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4293 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.Equality, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 600:
-#line 4292 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4298 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.Inequality, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 602:
-#line 4301 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4307 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.BitwiseAnd, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 604:
-#line 4310 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4316 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.ExclusiveOr, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 606:
-#line 4319 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4325 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.BitwiseOr, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 608:
-#line 4328 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4334 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.LogicalAnd, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 610:
-#line 4337 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4343 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Binary (Binary.Operator.LogicalOr, 
 			         (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 612:
-#line 4346 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4352 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version < LanguageVersion.ISO_2)
 			FeatureIsNotAvailable (GetLocation (yyVals[-1+yyTop]), "null coalescing operator");
@@ -5400,14 +5406,14 @@ case 612:
 	  }
   break;
 case 614:
-#line 4357 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4363 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Conditional (new BooleanExpression ((Expression) yyVals[-4+yyTop]), (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-3+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 615:
-#line 4365 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4371 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
         var potentialRolePlayer  = yyVals[0+yyTop] as Expression;
 	    var memberExpression = yyVals[-2+yyTop] as MemberAccess;
@@ -5429,77 +5435,77 @@ case 615:
 	  }
   break;
 case 616:
-#line 4385 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4391 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompoundAssign (
 			Binary.Operator.Multiply, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 617:
-#line 4390 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4396 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompoundAssign (
 			Binary.Operator.Division, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 618:
-#line 4395 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4401 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompoundAssign (
 			Binary.Operator.Modulus, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 619:
-#line 4400 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4406 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompoundAssign (
 			Binary.Operator.Addition, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 620:
-#line 4405 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4411 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompoundAssign (
 			Binary.Operator.Subtraction, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 621:
-#line 4410 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4416 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompoundAssign (
 			Binary.Operator.LeftShift, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 622:
-#line 4415 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4421 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompoundAssign (
 			Binary.Operator.RightShift, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 623:
-#line 4420 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4426 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompoundAssign (
 			Binary.Operator.BitwiseAnd, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 624:
-#line 4425 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4431 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompoundAssign (
 			Binary.Operator.BitwiseOr, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 625:
-#line 4430 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4436 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new CompoundAssign (
 			Binary.Operator.ExclusiveOr, (Expression) yyVals[-2+yyTop], (Expression) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 626:
-#line 4438 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4444 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var pars = new List<Parameter> (4);
 		pars.Add ((Parameter) yyVals[0+yyTop]);
@@ -5508,7 +5514,7 @@ case 626:
 	  }
   break;
 case 627:
-#line 4445 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4451 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var pars = (List<Parameter>) yyVals[-2+yyTop];
 		Parameter p = (Parameter)yyVals[0+yyTop];
@@ -5521,7 +5527,7 @@ case 627:
 	  }
   break;
 case 628:
-#line 4459 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4465 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 
@@ -5529,7 +5535,7 @@ case 628:
 	  }
   break;
 case 629:
-#line 4465 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4471 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 
@@ -5537,31 +5543,31 @@ case 629:
 	  }
   break;
 case 630:
-#line 4471 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4477 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		yyVal = new ImplicitLambdaParameter (lt.Value, lt.Location);
 	  }
   break;
 case 631:
-#line 4478 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4484 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = ParametersCompiled.EmptyReadOnlyParameters; }
   break;
 case 632:
-#line 4479 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4485 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		var pars_list = (List<Parameter>) yyVals[0+yyTop];
 		yyVal = new ParametersCompiled (pars_list.ToArray ());
 	  }
   break;
 case 635:
-#line 4491 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4497 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		start_block (lexer.Location);
 	  }
   break;
 case 636:
-#line 4495 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4501 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Block b = end_block (lexer.Location);
 		b.AddStatement (new ContextualReturn ((Expression) yyVals[0+yyTop]));
@@ -5569,14 +5575,14 @@ case 636:
 	  }
   break;
 case 638:
-#line 4505 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4511 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);	
 		yyVal = EmptyExpression.Null;
 	  }
   break;
 case 639:
-#line 4513 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4519 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];	
 		Parameter p = new ImplicitLambdaParameter (lt.Value, lt.Location);
@@ -5584,14 +5590,14 @@ case 639:
 	  }
   break;
 case 640:
-#line 4519 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4525 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = end_anonymous ((ParametersBlock) yyVals[0+yyTop]);
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-2+yyTop]));
 	  }
   break;
 case 641:
-#line 4524 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4530 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		Parameter p = new ImplicitLambdaParameter (lt.Value, lt.Location);
@@ -5599,93 +5605,93 @@ case 641:
 	  }
   break;
 case 642:
-#line 4530 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4536 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = end_anonymous ((ParametersBlock) yyVals[0+yyTop]);
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-4+yyTop]), GetLocation (yyVals[-2+yyTop]));
 	  }
   break;
 case 643:
-#line 4535 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4541 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	valid_param_mod = ParameterModifierType.Ref | ParameterModifierType.Out;
 	  }
   break;
 case 644:
-#line 4539 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4545 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	valid_param_mod = 0;
 		start_anonymous (true, (ParametersCompiled) yyVals[-2+yyTop], false, GetLocation (yyVals[-4+yyTop]));
 	  }
   break;
 case 645:
-#line 4544 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4550 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = end_anonymous ((ParametersBlock) yyVals[0+yyTop]);
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-3+yyTop]), GetLocation (yyVals[-2+yyTop]));
 	  }
   break;
 case 646:
-#line 4549 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4555 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	valid_param_mod = ParameterModifierType.Ref | ParameterModifierType.Out;	  
 	  }
   break;
 case 647:
-#line 4553 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4559 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	valid_param_mod = 0;
 		start_anonymous (true, (ParametersCompiled) yyVals[-2+yyTop], true, GetLocation (yyVals[-5+yyTop]));
 	  }
   break;
 case 648:
-#line 4558 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4564 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = end_anonymous ((ParametersBlock) yyVals[0+yyTop]);
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-7+yyTop]), GetLocation (yyVals[-3+yyTop]), GetLocation (yyVals[-2+yyTop]));
 	  }
   break;
 case 654:
-#line 4574 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4580 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ArglistAccess (GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 655:
-#line 4581 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4587 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new RefValueExpr ((Expression) yyVals[-3+yyTop], (FullNamedExpression) yyVals[-1+yyTop], GetLocation (yyVals[-5+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-4+yyTop]), GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 656:
-#line 4586 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4592 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new RefTypeExpr ((Expression) yyVals[-1+yyTop], GetLocation (yyVals[-3+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 657:
-#line 4591 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4597 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new MakeRefExpr ((Expression) yyVals[-1+yyTop], GetLocation (yyVals[-3+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));	  
 	  }
   break;
 case 659:
-#line 4603 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4609 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new BooleanExpression ((Expression) yyVals[0+yyTop]);
 	  }
   break;
 case 660:
-#line 4616 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4622 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = true;
 	  }
   break;
 case 661:
-#line 4620 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4626 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		MemberName name = MakeName ((MemberName) yyVals[0+yyTop]);
 		Class c = new Class (current_namespace, current_class, name, (Modifiers) yyVals[-4+yyTop], (Attributes) yyVals[-5+yyTop]);
@@ -5697,7 +5703,7 @@ case 661:
 	  }
   break;
 case 662:
-#line 4631 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4637 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.ConstraintsParsing = false;
 
@@ -5713,7 +5719,7 @@ case 662:
 	  }
   break;
 case 663:
-#line 4645 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4651 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_declaration;
 		if (doc_support)
@@ -5721,22 +5727,22 @@ case 663:
 	  }
   break;
 case 664:
-#line 4651 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4657 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lbag.AppendToMember (current_class, GetLocation (yyVals[-4+yyTop]), GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 		yyVal = pop_current_class ();
 	  }
   break;
 case 665:
-#line 4659 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4665 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 666:
-#line 4661 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4667 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = yyVals[0+yyTop]; }
   break;
 case 667:
-#line 4666 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4672 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	    mod_locations = null;
 		yyVal = ModifierNone;
@@ -5744,13 +5750,13 @@ case 667:
 	  }
   break;
 case 668:
-#line 4672 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4678 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.parsing_modifiers = false;		
 	  }
   break;
 case 670:
-#line 4680 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4686 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		var m1 = (Modifiers) yyVals[-1+yyTop];
 		var m2 = (Modifiers) yyVals[0+yyTop];
@@ -5768,7 +5774,7 @@ case 670:
 	  }
   break;
 case 671:
-#line 4699 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4705 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.NEW;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
@@ -5778,91 +5784,91 @@ case 671:
 	  }
   break;
 case 672:
-#line 4707 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4713 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.PUBLIC;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 673:
-#line 4712 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4718 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.PROTECTED;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 674:
-#line 4717 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4723 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.INTERNAL;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 675:
-#line 4722 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4728 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.PRIVATE;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 676:
-#line 4727 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4733 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.ABSTRACT;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 677:
-#line 4732 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4738 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.SEALED;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 678:
-#line 4737 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4743 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.STATIC;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 679:
-#line 4742 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4748 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.READONLY;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 680:
-#line 4747 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4753 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.VIRTUAL;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 681:
-#line 4752 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4758 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.OVERRIDE;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 682:
-#line 4757 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4763 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.EXTERN;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 683:
-#line 4762 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4768 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.VOLATILE;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 684:
-#line 4767 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4773 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.UNSAFE;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
@@ -5871,33 +5877,33 @@ case 684:
 	  }
   break;
 case 685:
-#line 4774 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4780 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Modifiers.ASYNC;
 		StoreModifierLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 687:
-#line 4783 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4789 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_container.AddBasesForPart (current_class, (List<FullNamedExpression>) yyVals[0+yyTop]);
 	 }
   break;
 case 689:
-#line 4791 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4797 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[0+yyTop];
 	  }
   break;
 case 690:
-#line 4795 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4801 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = null;
 	 }
   break;
 case 691:
-#line 4803 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4809 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var constraints = new List<Constraints> (1);
 		constraints.Add ((Constraints) yyVals[0+yyTop]);
@@ -5905,7 +5911,7 @@ case 691:
 	  }
   break;
 case 692:
-#line 4809 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4815 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var constraints = (List<Constraints>) yyVals[-1+yyTop];
 		Constraints new_constraint = (Constraints)yyVals[0+yyTop];
@@ -5923,14 +5929,14 @@ case 692:
 	  }
   break;
 case 693:
-#line 4828 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4834 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
 		yyVal = new Constraints (new SimpleMemberName (lt.Value, lt.Location), (List<FullNamedExpression>) yyVals[0+yyTop], GetLocation (yyVals[-3+yyTop]));
 	  }
   break;
 case 694:
-#line 4836 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4842 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var constraints = new List<FullNamedExpression> (1);
 		constraints.Add ((FullNamedExpression) yyVals[0+yyTop]);
@@ -5938,7 +5944,7 @@ case 694:
 	  }
   break;
 case 695:
-#line 4842 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4848 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var constraints = (List<FullNamedExpression>) yyVals[-2+yyTop];
 		var prev = constraints [constraints.Count - 1] as SpecialContraintExpr;
@@ -5963,7 +5969,7 @@ case 695:
 	  }
   break;
 case 696:
-#line 4868 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4874 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] is ComposedCast)
 			report.Error (706, GetLocation (yyVals[0+yyTop]), "Invalid constraint type `{0}'", ((ComposedCast)yyVals[0+yyTop]).GetSignatureForError ());
@@ -5972,32 +5978,32 @@ case 696:
 	  }
   break;
 case 697:
-#line 4875 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4881 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new SpecialContraintExpr (SpecialConstraint.Constructor, GetLocation (yyVals[-2+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-1+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 698:
-#line 4880 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4886 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new SpecialContraintExpr (SpecialConstraint.Class, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 699:
-#line 4884 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4890 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new SpecialContraintExpr (SpecialConstraint.Struct, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 700:
-#line 4891 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4897 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Variance.None;
 	  }
   break;
 case 701:
-#line 4895 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4901 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (lang_version <= LanguageVersion.V_3)
 			FeatureIsNotAvailable (lexer.Location, "generic type variance");
@@ -6006,119 +6012,119 @@ case 701:
 	  }
   break;
 case 702:
-#line 4905 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4911 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Variance.Covariant;
 	  }
   break;
 case 703:
-#line 4909 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4915 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = Variance.Contravariant;
 	  }
   break;
 case 704:
-#line 4929 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4935 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_block;
 		start_block (GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 705:
-#line 4934 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4940 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[0+yyTop];
 	  }
   break;
 case 706:
-#line 4941 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4947 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	 	--lexer.parsing_block;
 		yyVal = end_block (GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 707:
-#line 4946 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4952 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	 	--lexer.parsing_block;
 		yyVal = end_block (lexer.Location);
 	  }
   break;
 case 708:
-#line 4955 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4961 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		++lexer.parsing_block;
 		current_block.StartLocation = GetLocation (yyVals[0+yyTop]);
 	  }
   break;
 case 709:
-#line 4960 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4966 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_block;
 		yyVal = end_block (GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 714:
-#line 4978 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4984 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.AddStatement ((Statement) yyVals[0+yyTop]);
 	  }
   break;
 case 715:
-#line 4982 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4988 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.AddStatement ((Statement) yyVals[0+yyTop]);
 	  }
   break;
 case 717:
-#line 4987 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 4993 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = null;
 	  }
   break;
 case 720:
-#line 5006 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5012 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.AddStatement ((Statement) yyVals[0+yyTop]);
 	  }
   break;
 case 721:
-#line 5010 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5016 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.AddStatement ((Statement) yyVals[0+yyTop]);
 	  }
   break;
 case 750:
-#line 5051 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5057 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		  report.Error (1023, GetLocation (yyVals[0+yyTop]), "An embedded statement may not be a declaration or labeled statement");
 		  yyVal = null;
 	  }
   break;
 case 751:
-#line 5056 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5062 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		  report.Error (1023, GetLocation (yyVals[0+yyTop]), "An embedded statement may not be a declaration or labeled statement");
 		  yyVal = null;
 	  }
   break;
 case 752:
-#line 5061 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5067 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = new EmptyStatement (GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 753:
-#line 5069 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5075 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		/* Uses lexer.Location because semicolon location is not kept in quick mode*/
 		yyVal = new EmptyStatement (lexer.Location);
 	  }
   break;
 case 754:
-#line 5077 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5083 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		LabeledStatement labeled = new LabeledStatement (lt.Value, current_block, lt.Location);
@@ -6128,7 +6134,7 @@ case 754:
 	  }
   break;
 case 757:
-#line 5090 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5096 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[-1+yyTop] is VarExpr)
 			yyVals[-1+yyTop] = new SimpleName ("var", ((VarExpr) yyVals[-1+yyTop]).Location);
@@ -6137,7 +6143,7 @@ case 757:
 	  }
   break;
 case 758:
-#line 5106 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5112 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		/* Ok, the above "primary_expression" is there to get rid of*/
 		/* both reduce/reduce and shift/reduces in the grammar, it should*/
@@ -6169,7 +6175,7 @@ case 758:
 	  }
   break;
 case 759:
-#line 5136 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5142 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		ATypeNameExpression expr = yyVals[-1+yyTop] as ATypeNameExpression;
 
@@ -6182,7 +6188,7 @@ case 759:
 	  }
   break;
 case 760:
-#line 5147 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5153 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] == null)
 			yyVal = yyVals[-1+yyTop];
@@ -6191,39 +6197,39 @@ case 760:
 	  }
   break;
 case 761:
-#line 5154 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5160 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ComposedCast ((FullNamedExpression) yyVals[-1+yyTop], (ComposedTypeSpecifier) yyVals[0+yyTop]);
 	  }
   break;
 case 762:
-#line 5158 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5164 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new ComposedCast (new TypeExpression (compiler.BuiltinTypes.Void, GetLocation (yyVals[-1+yyTop])), (ComposedTypeSpecifier) yyVals[0+yyTop]);
 	  }
   break;
 case 763:
-#line 5162 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5168 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Expression.Error_VoidInvalidInTheContext (GetLocation (yyVals[0+yyTop]), report);
 		yyVal = new TypeExpression (compiler.BuiltinTypes.Void, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 765:
-#line 5171 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5177 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	((ComposedTypeSpecifier) yyVals[-1+yyTop]).Next = (ComposedTypeSpecifier) yyVals[0+yyTop];
 	  	yyVal = yyVals[-1+yyTop];
 	  }
   break;
 case 766:
-#line 5179 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5185 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = ComposedTypeSpecifier.CreatePointer (GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 768:
-#line 5187 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5193 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (async_block) {
 			report.Error (4003, GetLocation (yyVals[0+yyTop]), "`await' cannot be used as an identifier within an async method or lambda expression");
@@ -6232,7 +6238,7 @@ case 768:
 	  }
   break;
 case 769:
-#line 5197 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5203 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		var li = new LocalVariable (current_block, lt.Value, lt.Location);
@@ -6241,7 +6247,7 @@ case 769:
 	  }
   break;
 case 770:
-#line 5204 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5210 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = current_variable;
 		current_variable = null;
@@ -6249,7 +6255,7 @@ case 770:
 	  }
   break;
 case 771:
-#line 5210 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5216 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		var li = new LocalVariable (current_block, lt.Value, LocalVariable.Flags.Constant, lt.Location);
@@ -6258,7 +6264,7 @@ case 771:
 	  }
   break;
 case 772:
-#line 5217 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5223 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = current_variable;
 		current_variable = null;
@@ -6266,14 +6272,14 @@ case 772:
 	  }
   break;
 case 774:
-#line 5227 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5233 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_variable.Initializer = (Expression) yyVals[0+yyTop];
 		/* TODO: lbag*/
 	  }
   break;
 case 775:
-#line 5232 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5238 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if (yyToken == Token.OPEN_BRACKET_EXPR) {
 			report.Error (650, lexer.Location,
@@ -6284,7 +6290,7 @@ case 775:
 	  }
   break;
 case 779:
-#line 5250 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5256 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		foreach (var d in current_variable.Declarators) {
 			if (d.Initializer == null)
@@ -6293,7 +6299,7 @@ case 779:
 	  }
   break;
 case 782:
-#line 5265 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5271 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];	  
 		var li = new LocalVariable (current_variable.Variable, lt.Value, lt.Location);
@@ -6304,7 +6310,7 @@ case 782:
 	  }
   break;
 case 783:
-#line 5274 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5280 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];	  
 		var li = new LocalVariable (current_variable.Variable, lt.Value, lt.Location);
@@ -6315,19 +6321,19 @@ case 783:
 	  }
   break;
 case 784:
-#line 5286 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5292 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (145, lexer.Location, "A const field requires a value to be provided");
 	  }
   break;
 case 785:
-#line 5290 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5296 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_variable.Initializer = (Expression) yyVals[0+yyTop];
 	  }
   break;
 case 790:
-#line 5307 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5313 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];	  
 		var li = new LocalVariable (current_block, lt.Value, LocalVariable.Flags.Constant, lt.Location);
@@ -6338,40 +6344,40 @@ case 790:
 	  }
   break;
 case 792:
-#line 5320 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5326 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new StackAlloc ((Expression) yyVals[-3+yyTop], (Expression) yyVals[-1+yyTop], GetLocation (yyVals[-4+yyTop]));
 		lbag.AddLocation (yyVal, GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 793:
-#line 5325 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5331 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (1575, GetLocation (yyVals[-1+yyTop]), "A stackalloc expression requires [] after type");
 		yyVal = new StackAlloc ((Expression) yyVals[0+yyTop], null, GetLocation (yyVals[-1+yyTop]));		
 	  }
   break;
 case 794:
-#line 5333 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5339 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[-1+yyTop];
 		lbag.AddStatement (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 795:
-#line 5337 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5343 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = yyVals[-1+yyTop]; }
   break;
 case 796:
-#line 5341 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5347 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = yyVals[-1+yyTop]; }
   break;
 case 797:
-#line 5342 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5348 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = yyVals[-1+yyTop]; }
   break;
 case 798:
-#line 5351 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5357 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		ExpressionStatement s = yyVals[0+yyTop] as ExpressionStatement;
 		if (s == null) { 
@@ -6383,7 +6389,7 @@ case 798:
 	  }
   break;
 case 799:
-#line 5364 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5370 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Expression expr = (Expression) yyVals[0+yyTop];
 		ExpressionStatement s;
@@ -6393,14 +6399,14 @@ case 799:
 	  }
   break;
 case 800:
-#line 5372 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5378 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = new EmptyStatement (GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 803:
-#line 5386 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5392 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		if (yyVals[0+yyTop] is EmptyStatement)
 			Warning_EmptyStatement (GetLocation (yyVals[0+yyTop]));
@@ -6410,7 +6416,7 @@ case 803:
 	  }
   break;
 case 804:
-#line 5395 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5401 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new If ((BooleanExpression) yyVals[-4+yyTop], (Statement) yyVals[-2+yyTop], (Statement) yyVals[0+yyTop], GetLocation (yyVals[-6+yyTop]));
 		lbag.AddStatement (yyVal, GetLocation (yyVals[-5+yyTop]), GetLocation (yyVals[-3+yyTop]), GetLocation (yyVals[-1+yyTop]));
@@ -6422,13 +6428,13 @@ case 804:
 	  }
   break;
 case 805:
-#line 5408 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5414 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		start_block (GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 806:
-#line 5412 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5418 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Switch ((Expression) yyVals[-5+yyTop], (ExplicitBlock) current_block.Explicit, (List<SwitchSection>) yyVals[-1+yyTop], GetLocation (yyVals[-7+yyTop]));	
 		end_block (GetLocation (yyVals[0+yyTop]));
@@ -6436,14 +6442,14 @@ case 806:
 	  }
   break;
 case 807:
-#line 5421 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5427 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Warning (1522, 1, current_block.StartLocation, "Empty switch block"); 
 		yyVal = new List<SwitchSection> ();
 	  }
   break;
 case 809:
-#line 5430 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5436 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var sections = new List<SwitchSection> (4);
 
@@ -6452,7 +6458,7 @@ case 809:
 	  }
   break;
 case 810:
-#line 5437 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5443 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var sections = (List<SwitchSection>) yyVals[-1+yyTop];
 
@@ -6461,26 +6467,26 @@ case 810:
 	  }
   break;
 case 811:
-#line 5444 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5450 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);	  
 		yyVal = new List<SwitchSection> ();
 	  }
   break;
 case 812:
-#line 5452 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5458 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block = current_block.CreateSwitchBlock (lexer.Location);
 	  }
   break;
 case 813:
-#line 5456 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5462 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new SwitchSection ((List<SwitchLabel>) yyVals[-2+yyTop], current_block);
 	  }
   break;
 case 814:
-#line 5463 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5469 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var labels = new List<SwitchLabel> (2);
 
@@ -6489,7 +6495,7 @@ case 814:
 	  }
   break;
 case 815:
-#line 5470 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5476 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var labels = (List<SwitchLabel>) (yyVals[-1+yyTop]);
 		labels.Add ((SwitchLabel) yyVals[0+yyTop]);
@@ -6498,20 +6504,20 @@ case 815:
 	  }
   break;
 case 816:
-#line 5480 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5486 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	 	yyVal = new SwitchLabel ((Expression) yyVals[-1+yyTop], GetLocation (yyVals[-2+yyTop]));
 	 	lbag.AddLocation (yyVal, GetLocation (yyVals[0+yyTop]));
 	 }
   break;
 case 817:
-#line 5485 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5491 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new SwitchLabel (null, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 822:
-#line 5499 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5505 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] is EmptyStatement && lexer.peek_token () == Token.OPEN_BRACE)
 			Warning_EmptyStatement (GetLocation (yyVals[0+yyTop]));
@@ -6521,27 +6527,27 @@ case 822:
 	  }
   break;
 case 823:
-#line 5511 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5517 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Do ((Statement) yyVals[-5+yyTop], (BooleanExpression) yyVals[-2+yyTop], GetLocation (yyVals[-6+yyTop]));
 		lbag.AddStatement (yyVal, GetLocation (yyVals[-4+yyTop]), GetLocation (yyVals[-3+yyTop]), GetLocation (yyVals[-1+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 824:
-#line 5519 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5525 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		start_block (GetLocation (yyVals[0+yyTop]));
 		current_block.IsCompilerGenerated = true;
 	  }
   break;
 case 825:
-#line 5524 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5530 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[0+yyTop];
 	  }
   break;
 case 826:
-#line 5535 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5541 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] is EmptyStatement && lexer.peek_token () == Token.OPEN_BRACE)
 			Warning_EmptyStatement (GetLocation (yyVals[0+yyTop]));
@@ -6555,18 +6561,18 @@ case 826:
 	  }
   break;
 case 827:
-#line 5547 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5553 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = end_block (current_block.StartLocation);
 	  }
   break;
 case 828:
-#line 5554 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5560 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new EmptyStatement (lexer.Location); }
   break;
 case 830:
-#line 5560 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5566 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[0+yyTop];
 		var li = new LocalVariable (current_block, lt.Value, lt.Location);
@@ -6575,22 +6581,22 @@ case 830:
 	  }
   break;
 case 831:
-#line 5567 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5573 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = current_variable;
 		current_variable = null;
 	  }
   break;
 case 833:
-#line 5575 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5581 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = null; }
   break;
 case 835:
-#line 5580 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5586 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { yyVal = new EmptyStatement (lexer.Location); }
   break;
 case 839:
-#line 5591 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5597 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	var sl = yyVals[-2+yyTop] as StatementList;
 	  	if (sl == null) {
@@ -6605,14 +6611,14 @@ case 839:
 	  }
   break;
 case 840:
-#line 5607 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5613 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (230, GetLocation (yyVals[-5+yyTop]), "Type and identifier are both required in a foreach statement");
 		yyVal = null;
 	  }
   break;
 case 841:
-#line 5612 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5618 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		start_block (GetLocation (yyVals[-5+yyTop]));
 		current_block.IsCompilerGenerated = true;
@@ -6624,7 +6630,7 @@ case 841:
 	  }
   break;
 case 842:
-#line 5622 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5628 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] is EmptyStatement && lexer.peek_token () == Token.OPEN_BRACE)
 			Warning_EmptyStatement (GetLocation (yyVals[0+yyTop]));
@@ -6637,21 +6643,21 @@ case 842:
 	  }
   break;
 case 849:
-#line 5645 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5651 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Break (GetLocation (yyVals[-1+yyTop]));
 		lbag.AddStatement (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 850:
-#line 5653 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5659 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Continue (GetLocation (yyVals[-1+yyTop]));
 		lbag.AddStatement (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 851:
-#line 5661 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5667 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-1+yyTop];
 		yyVal = new Goto (lt.Value, lt.Location);
@@ -6659,35 +6665,35 @@ case 851:
 	  }
   break;
 case 852:
-#line 5667 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5673 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new GotoCase ((Expression) yyVals[-1+yyTop], GetLocation (yyVals[-3+yyTop]));
 		lbag.AddStatement (yyVal, GetLocation (yyVals[-2+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 853:
-#line 5672 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5678 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new GotoDefault (GetLocation (yyVals[-2+yyTop]));
 		lbag.AddStatement (yyVal, GetLocation (yyVals[-1+yyTop]), GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 854:
-#line 5680 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5686 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Return ((Expression) yyVals[-1+yyTop], GetLocation (yyVals[-2+yyTop]));
 		lbag.AddStatement (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 855:
-#line 5688 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5694 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Throw ((Expression) yyVals[-1+yyTop], GetLocation (yyVals[-2+yyTop]));
 		lbag.AddStatement (yyVal, GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 856:
-#line 5696 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5702 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-3+yyTop];
 		string s = lt.Value;
@@ -6705,7 +6711,7 @@ case 856:
 	  }
   break;
 case 857:
-#line 5712 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5718 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
 		string s = lt.Value;
@@ -6721,34 +6727,34 @@ case 857:
 	  }
   break;
 case 860:
-#line 5734 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5740 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new TryCatch ((Block) yyVals[-1+yyTop], (List<Catch>) yyVals[0+yyTop], GetLocation (yyVals[-2+yyTop]), false);
 	  }
   break;
 case 861:
-#line 5738 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5744 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new TryFinally ((Statement) yyVals[-2+yyTop], (Block) yyVals[0+yyTop], GetLocation (yyVals[-3+yyTop]));
 		lbag.AddStatement (yyVal, GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 862:
-#line 5743 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5749 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new TryFinally (new TryCatch ((Block) yyVals[-3+yyTop], (List<Catch>) yyVals[-2+yyTop], GetLocation (yyVals[-4+yyTop]), true), (Block) yyVals[0+yyTop], GetLocation (yyVals[-4+yyTop]));
 		lbag.AddStatement (yyVal, GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 863:
-#line 5748 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5754 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		report.Error (1524, GetLocation (yyVals[-2+yyTop]), "Expected catch or finally");
 		yyVal = null;
 	  }
   break;
 case 864:
-#line 5756 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5762 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var l = new List<Catch> (2);
 
@@ -6757,7 +6763,7 @@ case 864:
 	  }
   break;
 case 865:
-#line 5763 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5769 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var l = (List<Catch>) yyVals[-1+yyTop];
 		
@@ -6775,13 +6781,13 @@ case 865:
 	  }
   break;
 case 868:
-#line 5787 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5793 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Catch ((Block) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 869:
-#line 5791 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5797 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		start_block (GetLocation (yyVals[-3+yyTop]));
 		var c = new Catch (current_block, GetLocation (yyVals[-4+yyTop]));
@@ -6798,13 +6804,13 @@ case 869:
 	  }
   break;
 case 870:
-#line 5806 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5812 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[-1+yyTop];
 	  }
   break;
 case 871:
-#line 5810 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5816 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if (yyToken == Token.CLOSE_PARENS) {
 			report.Error (1015, lexer.Location,
@@ -6817,32 +6823,32 @@ case 871:
 	  }
   break;
 case 872:
-#line 5824 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5830 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Checked ((Block) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 873:
-#line 5831 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5837 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Unchecked ((Block) yyVals[0+yyTop], GetLocation (yyVals[-1+yyTop]));
 	  }
   break;
 case 874:
-#line 5838 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5844 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (!settings.Unsafe)
 			Error_UnsafeCodeNotAllowed (GetLocation (yyVals[0+yyTop]));
 	  }
   break;
 case 875:
-#line 5841 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5847 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Unsafe ((Block) yyVals[0+yyTop], GetLocation (yyVals[-2+yyTop]));
 	  }
   break;
 case 876:
-#line 5848 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5854 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] is EmptyStatement && lexer.peek_token () == Token.OPEN_BRACE)
 			Warning_EmptyStatement (GetLocation (yyVals[0+yyTop]));
@@ -6852,7 +6858,7 @@ case 876:
 	  }
   break;
 case 877:
-#line 5859 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5865 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	    start_block (GetLocation (yyVals[-2+yyTop]));
 	    
@@ -6864,14 +6870,14 @@ case 877:
 	  }
   break;
 case 878:
-#line 5869 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5875 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = current_variable;
 		current_variable = null;
 	  }
   break;
 case 879:
-#line 5874 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5880 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] is EmptyStatement && lexer.peek_token () == Token.OPEN_BRACE)
 			Warning_EmptyStatement (GetLocation (yyVals[0+yyTop]));
@@ -6882,7 +6888,7 @@ case 879:
 	  }
   break;
 case 880:
-#line 5886 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5892 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	    start_block (GetLocation (yyVals[-2+yyTop]));
 	    
@@ -6894,14 +6900,14 @@ case 880:
 	  }
   break;
 case 881:
-#line 5896 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5902 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = current_variable;	  
 		current_variable = null;
 	  }
   break;
 case 882:
-#line 5901 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5907 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] is EmptyStatement && lexer.peek_token () == Token.OPEN_BRACE)
 			Warning_EmptyStatement (GetLocation (yyVals[0+yyTop]));
@@ -6912,7 +6918,7 @@ case 882:
 	  }
   break;
 case 883:
-#line 5910 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5916 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[0+yyTop] is EmptyStatement && lexer.peek_token () == Token.OPEN_BRACE)
 			Warning_EmptyStatement (GetLocation (yyVals[0+yyTop]));
@@ -6923,20 +6929,20 @@ case 883:
 	  }
   break;
 case 884:
-#line 5922 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5928 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_MissingInitializer (lexer.Location);
 	  }
   break;
 case 885:
-#line 5926 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5932 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_variable.Initializer = (Expression) yyVals[0+yyTop];
 		yyVal = current_variable;
 	  }
   break;
 case 886:
-#line 5937 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5943 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		lexer.query_parsing = false;
 			
@@ -6950,7 +6956,7 @@ case 886:
 	  }
   break;
 case 887:
-#line 5949 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5955 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Linq.AQueryClause from = yyVals[-1+yyTop] as Linq.AQueryClause;
 			
@@ -6962,7 +6968,7 @@ case 887:
 	  }
   break;
 case 888:
-#line 5960 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5966 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	        lexer.query_parsing = false;
 		yyVal = yyVals[-1+yyTop];
@@ -6972,7 +6978,7 @@ case 888:
 	  }
   break;
 case 889:
-#line 5967 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5973 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	        yyVal = yyVals[-1+yyTop];
 		current_block.SetEndLocation (lexer.Location);
@@ -6980,7 +6986,7 @@ case 889:
 	  }
   break;
 case 890:
-#line 5976 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5982 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block = new Linq.QueryBlock (current_block, lexer.Location);
 	  
@@ -6990,7 +6996,7 @@ case 890:
 	  }
   break;
 case 891:
-#line 5984 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 5990 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block = new Linq.QueryBlock (current_block, lexer.Location);
 	  
@@ -7004,7 +7010,7 @@ case 891:
 	  }
   break;
 case 892:
-#line 5999 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6005 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block = new Linq.QueryBlock (current_block, lexer.Location);
 	  
@@ -7014,7 +7020,7 @@ case 892:
 	  }
   break;
 case 893:
-#line 6007 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6013 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block = new Linq.QueryBlock (current_block, lexer.Location);
 	  
@@ -7028,13 +7034,13 @@ case 893:
 	  }
   break;
 case 894:
-#line 6022 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6028 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block = new Linq.QueryBlock (current_block, lexer.Location);
 	  }
   break;
 case 895:
-#line 6026 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6032 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-3+yyTop];
 		var sn = new Linq.RangeVariable (lt.Value, lt.Location);
@@ -7047,13 +7053,13 @@ case 895:
 	  }
   break;
 case 896:
-#line 6037 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6043 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block = new Linq.QueryBlock (current_block, lexer.Location);
 	  }
   break;
 case 897:
-#line 6041 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6047 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-3+yyTop];
 		var sn = new Linq.RangeVariable (lt.Value, lt.Location);
@@ -7069,7 +7075,7 @@ case 897:
 	  }
   break;
 case 898:
-#line 6058 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6064 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	Linq.AQueryClause head = (Linq.AQueryClause)yyVals[-1+yyTop];
 		
@@ -7086,20 +7092,20 @@ case 898:
 	  }
   break;
 case 900:
-#line 6074 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6080 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		Error_SyntaxError (yyToken);
 		yyVal = null;
 	  }
   break;
 case 901:
-#line 6082 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6088 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	current_block = new Linq.QueryBlock (current_block, lexer.Location);
 	  }
   break;
 case 902:
-#line 6086 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6092 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Linq.Select ((Linq.QueryBlock)current_block, (Expression)yyVals[0+yyTop], GetLocation (yyVals[-2+yyTop]));
 
@@ -7108,7 +7114,7 @@ case 902:
 	  }
   break;
 case 903:
-#line 6093 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6099 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	if (linq_clause_blocks == null)
 	  		linq_clause_blocks = new Stack<Linq.QueryBlock> ();
@@ -7118,7 +7124,7 @@ case 903:
 	  }
   break;
 case 904:
-#line 6101 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6107 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.SetEndLocation (lexer.Location);
 		current_block = current_block.Parent;
@@ -7127,7 +7133,7 @@ case 904:
 	  }
   break;
 case 905:
-#line 6108 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6114 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Linq.GroupBy ((Linq.QueryBlock)current_block, (Expression)yyVals[-3+yyTop], linq_clause_blocks.Pop (), (Expression)yyVals[0+yyTop], GetLocation (yyVals[-5+yyTop]));
 		
@@ -7136,20 +7142,20 @@ case 905:
 	  }
   break;
 case 909:
-#line 6124 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6130 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		((Linq.AQueryClause)yyVals[-1+yyTop]).Tail.Next = (Linq.AQueryClause)yyVals[0+yyTop];
 		yyVal = yyVals[-1+yyTop];
 	  }
   break;
 case 915:
-#line 6140 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6146 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	current_block = new Linq.QueryBlock (current_block, lexer.Location);
 	  }
   break;
 case 916:
-#line 6144 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6150 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var lt = (Tokenizer.LocatedToken) yyVals[-3+yyTop];
 		var sn = new Linq.RangeVariable (lt.Value, lt.Location);
@@ -7162,13 +7168,13 @@ case 916:
 	  }
   break;
 case 917:
-#line 6158 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6164 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 	  	current_block = new Linq.QueryBlock (current_block, lexer.Location);
 	  }
   break;
 case 918:
-#line 6162 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6168 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Linq.Where ((Linq.QueryBlock)current_block, (Expression)yyVals[0+yyTop], GetLocation (yyVals[-2+yyTop]));
 
@@ -7177,7 +7183,7 @@ case 918:
 	  }
   break;
 case 919:
-#line 6172 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6178 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (linq_clause_blocks == null)
 			linq_clause_blocks = new Stack<Linq.QueryBlock> ();
@@ -7187,7 +7193,7 @@ case 919:
 	  }
   break;
 case 920:
-#line 6180 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6186 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.SetEndLocation (lexer.Location);
 		current_block = current_block.Parent;
@@ -7197,7 +7203,7 @@ case 920:
 	  }
   break;
 case 921:
-#line 6188 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6194 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.AddStatement (new ContextualReturn ((Expression) yyVals[-1+yyTop]));
 		current_block.SetEndLocation (lexer.Location);
@@ -7207,7 +7213,7 @@ case 921:
 	  }
   break;
 case 922:
-#line 6196 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6202 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.AddStatement (new ContextualReturn ((Expression) yyVals[-1+yyTop]));
 		current_block.SetEndLocation (lexer.Location);
@@ -7245,7 +7251,7 @@ case 922:
 	  }
   break;
 case 923:
-#line 6232 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6238 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (linq_clause_blocks == null)
 			linq_clause_blocks = new Stack<Linq.QueryBlock> ();
@@ -7255,7 +7261,7 @@ case 923:
 	  }
   break;
 case 924:
-#line 6240 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6246 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.SetEndLocation (lexer.Location);
 		current_block = current_block.Parent;
@@ -7265,7 +7271,7 @@ case 924:
 	  }
   break;
 case 925:
-#line 6248 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6254 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.AddStatement (new ContextualReturn ((Expression) yyVals[-1+yyTop]));
 		current_block.SetEndLocation (lexer.Location);
@@ -7275,7 +7281,7 @@ case 925:
 	  }
   break;
 case 926:
-#line 6256 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6262 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.AddStatement (new ContextualReturn ((Expression) yyVals[-1+yyTop]));
 		current_block.SetEndLocation (lexer.Location);
@@ -7317,19 +7323,19 @@ case 926:
 	  }
   break;
 case 928:
-#line 6300 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6306 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[0+yyTop];
 	  }
   break;
 case 929:
-#line 6307 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6313 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block = new Linq.QueryBlock (current_block, lexer.Location);
 	  }
   break;
 case 930:
-#line 6311 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6317 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.SetEndLocation (lexer.Location);
 		current_block = current_block.Parent;
@@ -7338,7 +7344,7 @@ case 930:
 	  }
   break;
 case 932:
-#line 6322 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6328 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.SetEndLocation (lexer.Location);
 		current_block = current_block.Parent;
@@ -7347,14 +7353,14 @@ case 932:
 	  }
   break;
 case 933:
-#line 6329 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6335 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		((Linq.AQueryClause)yyVals[-3+yyTop]).Next = (Linq.AQueryClause)yyVals[0+yyTop];
 		yyVal = yyVals[-3+yyTop];
 	  }
   break;
 case 935:
-#line 6338 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6344 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		current_block.SetEndLocation (lexer.Location);
 		current_block = current_block.Parent;
@@ -7363,50 +7369,50 @@ case 935:
 	 }
   break;
 case 936:
-#line 6345 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6351 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		((Linq.AQueryClause)yyVals[-3+yyTop]).Tail.Next = (Linq.AQueryClause)yyVals[0+yyTop];
 		yyVal = yyVals[-3+yyTop];
 	 }
   break;
 case 937:
-#line 6353 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6359 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Linq.OrderByAscending ((Linq.QueryBlock) current_block, (Expression)yyVals[0+yyTop]);	
 	  }
   break;
 case 938:
-#line 6357 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6363 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Linq.OrderByAscending ((Linq.QueryBlock) current_block, (Expression)yyVals[-1+yyTop]);	
 	  }
   break;
 case 939:
-#line 6361 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6367 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Linq.OrderByDescending ((Linq.QueryBlock) current_block, (Expression)yyVals[-1+yyTop]);	
 	  }
   break;
 case 940:
-#line 6368 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6374 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Linq.ThenByAscending ((Linq.QueryBlock) current_block, (Expression)yyVals[0+yyTop]);	
 	  }
   break;
 case 941:
-#line 6372 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6378 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Linq.ThenByAscending ((Linq.QueryBlock) current_block, (Expression)yyVals[-1+yyTop]);	
 	  }
   break;
 case 942:
-#line 6376 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6382 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new Linq.ThenByDescending ((Linq.QueryBlock) current_block, (Expression)yyVals[-1+yyTop]);	
 	  }
   break;
 case 944:
-#line 6385 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6391 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		/* query continuation block is not linked with query block but with block*/
 		/* before. This means each query can use same range variable names for*/
@@ -7424,7 +7430,7 @@ case 944:
 	  }
   break;
 case 945:
-#line 6401 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6407 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var current_block = linq_clause_blocks.Pop ();	  
 		var lt = (Tokenizer.LocatedToken) yyVals[-2+yyTop];
@@ -7435,7 +7441,7 @@ case 945:
 	  }
   break;
 case 948:
-#line 6428 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6434 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   { 
 		current_container = new Class (current_namespace, current_class, new MemberName ("<InteractiveExpressionClass>"), Modifiers.PUBLIC, null);
 		current_class = current_container;
@@ -7467,7 +7473,7 @@ case 948:
 	  }
   break;
 case 949:
-#line 6458 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6464 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		--lexer.parsing_block;
 		Method method = (Method) oob_stack.Pop ();
@@ -7479,19 +7485,19 @@ case 949:
 	  }
   break;
 case 957:
-#line 6490 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6496 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		module.DocumentationBuilder.ParsedName = (MemberName) yyVals[0+yyTop];
 	  }
   break;
 case 958:
-#line 6497 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6503 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		module.DocumentationBuilder.ParsedParameters = (List<DocumentationParameter>)yyVals[0+yyTop];
 	  }
   break;
 case 959:
-#line 6501 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6507 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		module.DocumentationBuilder.ParsedBuiltinType = (TypeExpression)yyVals[-1+yyTop];
 		module.DocumentationBuilder.ParsedParameters = (List<DocumentationParameter>)yyVals[0+yyTop];
@@ -7499,7 +7505,7 @@ case 959:
 	  }
   break;
 case 960:
-#line 6507 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6513 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		module.DocumentationBuilder.ParsedBuiltinType = (TypeExpression)yyVals[-3+yyTop];
 		module.DocumentationBuilder.ParsedParameters = (List<DocumentationParameter>)yyVals[0+yyTop];
@@ -7508,26 +7514,26 @@ case 960:
 	  }
   break;
 case 961:
-#line 6514 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6520 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new MemberName ((MemberName) yyVals[-2+yyTop], new MemberName (MemberCache.IndexerNameAlias));
 	  }
   break;
 case 962:
-#line 6518 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6524 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = ParameterModifierType.Ref | ParameterModifierType.Out;
 	  }
   break;
 case 963:
-#line 6522 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6528 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		module.DocumentationBuilder.ParsedParameters = (List<DocumentationParameter>)yyVals[-1+yyTop];
 		yyVal = new MemberName ((MemberName) yyVals[-6+yyTop], new MemberName (MemberCache.IndexerNameAlias));
 	  }
   break;
 case 964:
-#line 6527 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6533 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var p = (List<DocumentationParameter>)yyVals[0+yyTop] ?? new List<DocumentationParameter> (1);
 		p.Add (new DocumentationParameter ((FullNamedExpression) yyVals[-1+yyTop]));
@@ -7537,7 +7543,7 @@ case 964:
 	  }
   break;
 case 965:
-#line 6535 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6541 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var p = (List<DocumentationParameter>)yyVals[0+yyTop] ?? new List<DocumentationParameter> (1);
 		p.Add (new DocumentationParameter ((FullNamedExpression) yyVals[-1+yyTop]));
@@ -7547,7 +7553,7 @@ case 965:
 	  }
   break;
 case 966:
-#line 6543 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6549 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var p = (List<DocumentationParameter>)yyVals[0+yyTop] ?? new List<DocumentationParameter> (1);
 		module.DocumentationBuilder.ParsedParameters = p;
@@ -7556,31 +7562,31 @@ case 966:
 	  }
   break;
 case 968:
-#line 6554 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6560 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new MemberName (((MemberName) yyVals[-2+yyTop]), (MemberName) yyVals[0+yyTop]);
 	  }
   break;
 case 970:
-#line 6562 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6568 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		valid_param_mod = ParameterModifierType.Ref | ParameterModifierType.Out;
 	  }
   break;
 case 971:
-#line 6566 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6572 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = yyVals[-1+yyTop];
 	  }
   break;
 case 972:
-#line 6573 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6579 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		yyVal = new List<DocumentationParameter> (0);
 	  }
   break;
 case 974:
-#line 6581 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6587 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var parameters = new List<DocumentationParameter> ();
 		parameters.Add ((DocumentationParameter) yyVals[0+yyTop]);
@@ -7588,7 +7594,7 @@ case 974:
 	  }
   break;
 case 975:
-#line 6587 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6593 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		var parameters = yyVals[-2+yyTop] as List<DocumentationParameter>;
 		parameters.Add ((DocumentationParameter) yyVals[0+yyTop]);
@@ -7596,7 +7602,7 @@ case 975:
 	  }
   break;
 case 976:
-#line 6596 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6602 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
   {
 		if (yyVals[-1+yyTop] != null)
 			yyVal = new DocumentationParameter ((Parameter.Modifier) yyVals[-1+yyTop], (FullNamedExpression) yyVals[0+yyTop]);
@@ -11126,7 +11132,7 @@ case 976:
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,  362,
   };
 
-#line 6605 "D:\GitHub\Marvin\mcs\mcs\cs-parser.jay"
+#line 6611 "D:\GitHub\M\Marvin\mcs\cs-parser.jay"
 
 // <summary>
 //  A class used to hold info about an operator declarator
