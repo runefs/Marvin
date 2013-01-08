@@ -1,0 +1,164 @@
+<Type Name="ContractFailedEventArgs" FullName="System.Diagnostics.Contracts.ContractFailedEventArgs">
+  <TypeSignature Language="C#" Value="public sealed class ContractFailedEventArgs : EventArgs" />
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.EventArgs</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>Contains event data for the Contract.ContractFailed event.</summary>
+    <remarks />
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ContractFailedEventArgs (System.Diagnostics.Contracts.ContractFailureKind failureKind, string message, string condition, Exception originalException);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.ConstrainedExecution.ReliabilityContract(System.Runtime.ConstrainedExecution.Consistency.WillNotCorruptState, System.Runtime.ConstrainedExecution.Cer.Success)</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="failureKind" Type="System.Diagnostics.Contracts.ContractFailureKind" />
+        <Parameter Name="message" Type="System.String" />
+        <Parameter Name="condition" Type="System.String" />
+        <Parameter Name="originalException" Type="System.Exception" />
+      </Parameters>
+      <Docs>
+        <param name="failureKind">The kind of contract failure.</param>
+        <param name="message">The message associated with this contract failure.</param>
+        <param name="condition">The condition that caused the contract failure.</param>
+        <param name="originalException">The original exception that caused this contract failure, if any.</param>
+        <summary>Construct a ContractFailedEventArgs.</summary>
+        <remarks />
+      </Docs>
+    </Member>
+    <Member MemberName="Condition">
+      <MemberSignature Language="C#" Value="public string Condition { get; }" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the condition that caused the contract failure.</summary>
+        <value>The condition that caused the contract failure.</value>
+        <remarks />
+      </Docs>
+    </Member>
+    <Member MemberName="FailureKind">
+      <MemberSignature Language="C#" Value="public System.Diagnostics.Contracts.ContractFailureKind FailureKind { get; }" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Diagnostics.Contracts.ContractFailureKind</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the kind of contract failure.</summary>
+        <value>The kind of contract failure.</value>
+        <remarks />
+      </Docs>
+    </Member>
+    <Member MemberName="Handled">
+      <MemberSignature Language="C#" Value="public bool Handled { get; }" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets whether the contract failure has been handled.</summary>
+        <value>Whether the contract failure has been handled.</value>
+        <remarks />
+      </Docs>
+    </Member>
+    <Member MemberName="Message">
+      <MemberSignature Language="C#" Value="public string Message { get; }" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the message associated with this contract failure.</summary>
+        <value>The message associated with this contract failure.</value>
+        <remarks />
+      </Docs>
+    </Member>
+    <Member MemberName="OriginalException">
+      <MemberSignature Language="C#" Value="public Exception OriginalException { get; }" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Exception</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the original exception that caused this contract failure, if any.</summary>
+        <value>The original exception that caused this contract failure, if any.</value>
+        <remarks />
+      </Docs>
+    </Member>
+    <Member MemberName="SetHandled">
+      <MemberSignature Language="C#" Value="public void SetHandled ();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Mark this contract failure as having been handled.</summary>
+        <remarks>Marking the contract failure as having been handled suppresses the default contract failure behaviour. </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SetUnwind">
+      <MemberSignature Language="C#" Value="public void SetUnwind ();" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Request that this contract failure unwind the stack by throwing an exception.</summary>
+        <remarks>Marking the contract failure as having been handled suppresses the default contract failure behaviour.
+Requesting the contract failure unwind the stack suppresses the default contract failure behaviour, and throws a <see cref="T:System.Diagnostics.Contracts.ContractException" /> instead.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Unwind">
+      <MemberSignature Language="C#" Value="public bool Unwind { get; }" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets whether the contract failure should unwind the stack.</summary>
+        <value>Whether the contract failure should unwind the stack.</value>
+        <remarks />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

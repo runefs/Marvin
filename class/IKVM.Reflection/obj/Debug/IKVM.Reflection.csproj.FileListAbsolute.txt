@@ -1,0 +1,5 @@
+C:\Projects\Mono -Marvin\mcs\class\IKVM.Reflection\bin\Debug\IKVM.Reflection.dll
+C:\Projects\Mono -Marvin\mcs\class\IKVM.Reflection\bin\Debug\IKVM.Reflection.pdb
+C:\Projects\Mono -Marvin\mcs\class\IKVM.Reflection\obj\Debug\ResolveAssemblyReference.cache
+C:\Projects\Mono -Marvin\mcs\class\IKVM.Reflection\obj\Debug\IKVM.Reflection.dll
+C:\Projects\Mono -Marvin\mcs\class\IKVM.Reflection\obj\Debug\IKVM.Reflection.pdb

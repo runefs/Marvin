@@ -1,0 +1,37 @@
+<Type Name="ContractInvariantMethodAttribute" FullName="System.Diagnostics.Contracts.ContractInvariantMethodAttribute">
+  <TypeSignature Language="C#" Value="public sealed class ContractInvariantMethodAttribute : Attribute" />
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Attribute</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.AttributeUsage(System.AttributeTargets.Method, Inherited=false)</AttributeName>
+    </Attribute>
+    <Attribute>
+      <AttributeName>System.Diagnostics.Conditional("CONTRACTS_FULL")</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>Specifies that this method contains Contract invariant conditions for this class.</summary>
+    <remarks>There may be multiple methods with this attribute in one class, their effect is accumulated. The method must take no parameters and return void, and may be any visibility.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ContractInvariantMethodAttribute ();" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>Construct a ContractInvariantMethodAttribute.</summary>
+        <remarks />
+      </Docs>
+    </Member>
+  </Members>
+</Type>

@@ -1,0 +1,58 @@
+<Type Name="ContractClassAttribute" FullName="System.Diagnostics.Contracts.ContractClassAttribute">
+  <TypeSignature Language="C#" Value="public sealed class ContractClassAttribute : Attribute" />
+  <AssemblyInfo>
+    <AssemblyName>mscorlib</AssemblyName>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Attribute</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute>
+      <AttributeName>System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Interface | System.AttributeTargets.Delegate | System.AttributeTargets.All, Inherited=false)</AttributeName>
+    </Attribute>
+    <Attribute>
+      <AttributeName>System.Diagnostics.Conditional("CONTRACTS_FULL")</AttributeName>
+    </Attribute>
+    <Attribute>
+      <AttributeName>System.Diagnostics.Conditional("DEBUG")</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>Marks a class as having another class that contains its code contracts.</summary>
+    <remarks>Interfaces and abstract methods cannot have their contracts written directly in the code. The <see cref="T:System.Diagnostics.Contracts.ContractClassAttribute" /> and <see cref="T:System.Diagnostics.Contracts.ContractClassForAttribute" /> may be used to specify another class that contains the contracts for an interface or abstract class.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ContractClassAttribute (Type typeContainingContracts);" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="typeContainingContracts" Type="System.Type" />
+      </Parameters>
+      <Docs>
+        <param name="typeContainingContracts">The type that contains the code contract specifications.</param>
+        <summary>Constructs a ContractClassAttribute, specifying the type that contains the code contract specifications.</summary>
+        <remarks />
+      </Docs>
+    </Member>
+    <Member MemberName="TypeContainingContracts">
+      <MemberSignature Language="C#" Value="public Type TypeContainingContracts { get; }" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Type</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Get the type that contains the code contract specifications.</summary>
+        <value>The type that contains the code contract specifications.</value>
+        <remarks />
+      </Docs>
+    </Member>
+  </Members>
+</Type>
