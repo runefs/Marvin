@@ -1,0 +1,425 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="decimal" priority="4" />
+      <Item value="Source" priority="0" />
+      <Item value="public" priority="28" />
+      <Item value="class" priority="5" />
+      <Item value="SourceFile`0" priority="0" />
+      <Item value="string" priority="7" />
+      <Item value="new" priority="9" />
+      <Item value="message" priority="0" />
+      <Item value="ElementAccess`0" priority="0" />
+      <Item value="e" priority="2" />
+      <Item value="LedgerEntry`0" priority="0" />
+      <Item value="GenericTypeExpr`0" priority="1" />
+      <Item value="return" priority="48" />
+      <Item value="Console`0" priority="1" />
+      <Item value="Destination" priority="0" />
+      <Item value="void" priority="0" />
+      <Item value="field" priority="5" />
+      <Item value="contextExpression" priority="0" />
+      <Item value="This" priority="0" />
+      <Item value="if" priority="41" />
+      <Item value="candidate_args" priority="0" />
+      <Item value="else" priority="5" />
+      <Item value="argsCount" priority="0" />
+      <Item value="roleArgs" priority="1" />
+      <Item value="Arguments" priority="0" />
+      <Item value="Type" priority="0" />
+      <Item value="instanceExpression" priority="0" />
+      <Item value="InstanceExpression" priority="0" />
+      <Item value="Contract`0" priority="2" />
+      <Item value="left" priority="1" />
+      <Item value="expr" priority="1" />
+      <Item value="SimpleName`0" priority="0" />
+      <Item value="var" priority="26" />
+      <Item value="DynamicExpressionStatement`0" priority="0" />
+      <Item value="Field`0" priority="1" />
+      <Item value="FieldExpr`0" priority="4" />
+      <Item value="member_expr" priority="3" />
+      <Item value="MethodGroupExpr`0" priority="2" />
+      <Item value="methodGroup" priority="2" />
+      <Item value="ms" priority="1" />
+      <Item value="methodSpec" priority="0" />
+      <Item value="roleMethodSpecs" priority="1" />
+      <Item value="arguments" priority="10" />
+      <Item value="Invocation`0" priority="0" />
+      <Item value="IgnoreRoleMethod" priority="1" />
+      <Item value="roleMethodInvocation" priority="1" />
+      <Item value="this" priority="7" />
+      <Item value="ignoreErrors" priority="1" />
+      <Item value="null" priority="24" />
+      <Item value="Node`0" priority="1" />
+      <Item value="TentativeDistance" priority="0" />
+      <Item value="int" priority="8" />
+      <Item value="Name" priority="3" />
+      <Item value="name" priority="1" />
+      <Item value="override" priority="4" />
+      <Item value="bool" priority="7" />
+      <Item value="object" priority="0" />
+      <Item value="other" priority="9" />
+      <Item value="as" priority="9" />
+      <Item value="o" priority="0" />
+      <Item value="base" priority="0" />
+      <Item value="Activity`0" priority="3" />
+      <Item value="IEnumerable" priority="2" />
+      <Item value="duration" priority="1" />
+      <Item value="predecessors" priority="0" />
+      <Item value="Enumerable`0" priority="0" />
+      <Item value="FrontLoader`0" priority="0" />
+      <Item value="allActivities" priority="0" />
+      <Item value="activities" priority="0" />
+      <Item value="_earlyStartDate" priority="0" />
+      <Item value="earlyStartDate" priority="0" />
+      <Item value="private" priority="4" />
+      <Item value="_name" priority="0" />
+      <Item value="list" priority="1" />
+      <Item value="DateTime`0" priority="0" />
+      <Item value="Predecessors" priority="0" />
+      <Item value="false" priority="12" />
+      <Item value="true" priority="12" />
+      <Item value="nullArguments" priority="0" />
+      <Item value="MemberName`0" priority="0" />
+      <Item value="FieldBase`0" priority="0" />
+      <Item value="b" priority="0" />
+      <Item value="Interface`0" priority="1" />
+      <Item value="is" priority="1" />
+      <Item value="i" priority="7" />
+      <Item value="TypeExpr`0" priority="0" />
+      <Item value="mc" priority="1" />
+      <Item value="MethodSpec`0" priority="0" />
+      <Item value="Method`0" priority="1" />
+      <Item value="method" priority="4" />
+      <Item value="Modifiers`0" priority="2" />
+      <Item value="ModFlags" priority="1" />
+      <Item value="NOEMIT" priority="1" />
+      <Item value="methods" priority="1" />
+      <Item value="tempParameters" priority="0" />
+      <Item value="CSharpParser`0" priority="2" />
+      <Item value="Contract" priority="0" />
+      <Item value="New`0" priority="0" />
+      <Item value="Cast`0" priority="0" />
+      <Item value="RoleField`0" priority="2" />
+      <Item value="NullLiteral`0" priority="0" />
+      <Item value="loc" priority="0" />
+      <Item value="fld" priority="13" />
+      <Item value="contractName" priority="1" />
+      <Item value="TypeExpression`0" priority="0" />
+      <Item value="contract" priority="3" />
+      <Item value="roleExpression" priority="3" />
+      <Item value="m" priority="4" />
+      <Item value="Length" priority="2" />
+      <Item value="foreach" priority="3" />
+      <Item value="potentialMethods" priority="2" />
+      <Item value="existInContract" priority="1" />
+      <Item value="break" priority="0" />
+      <Item value="internal" priority="0" />
+      <Item value="static" priority="8" />
+      <Item value="TypeSpec`0" priority="8" />
+      <Item value="self" priority="10" />
+      <Item value="IComparer" priority="0" />
+      <Item value="x" priority="2" />
+      <Item value="y" priority="2" />
+      <Item value="readonly" priority="0" />
+      <Item value="Comparer`0" priority="0" />
+      <Item value="TypeSpecComparer`0" priority="1" />
+      <Item value="IEqualityComparer" priority="0" />
+      <Item value="obj" priority="0" />
+      <Item value="Comparer" priority="0" />
+      <Item value="IsBaseOf`0" priority="0" />
+      <Item value="in" priority="1" />
+      <Item value="Return`0" priority="0" />
+      <Item value="switch" priority="0" />
+      <Item value="case" priority="8" />
+      <Item value="default" priority="0" />
+      <Item value="GetSimpleTypeRank`0" priority="1" />
+      <Item value="selfRank" priority="2" />
+      <Item value="otherRank" priority="2" />
+      <Item value="ParameterReference`0" priority="0" />
+      <Item value="Parameter`0" priority="0" />
+      <Item value="selfRef" priority="0" />
+      <Item value="atn" priority="0" />
+      <Item value="ArgumentNullException`0" priority="0" />
+      <Item value="BuiltinTypeSpec`0" priority="0" />
+      <Item value="potentialMethod" priority="1" />
+      <Item value="from" priority="0" />
+      <Item value="parameterTypes" priority="1" />
+      <Item value="All`1" priority="1" />
+      <Item value="p" priority="1" />
+      <Item value="Select`2" priority="0" />
+      <Item value="Tuple" priority="0" />
+      <Item value="t" priority="0" />
+      <Item value="where" priority="0" />
+      <Item value="noArguments" priority="0" />
+      <Item value="argumentsMatch" priority="0" />
+      <Item value="ConvertExpressionToArrayIndex`0" priority="0" />
+      <Item value="List" priority="0" />
+      <Item value="for" priority="0" />
+      <Item value="argumentTypes" priority="1" />
+      <Item value="methodName" priority="0" />
+      <Item value="BindingRestriction`0" priority="0" />
+      <Item value="candidate" priority="0" />
+      <Item value="SimpleAssign`0" priority="0" />
+      <Item value="target" priority="1" />
+      <Item value="MemberAccess`0" priority="1" />
+      <Item value="fldAccess" priority="5" />
+      <Item value="source" priority="2" />
+      <Item value="using" priority="1" />
+      <Item value="info" priority="1" />
+      <Item value="Reflection`0" priority="0" />
+      <Item value="Expression`0" priority="0" />
+      <Item value="simple" priority="5" />
+      <Item value="access" priority="1" />
+      <Item value="protected" priority="0" />
+      <Item value="System" priority="0" />
+      <Item value="Diagnostics" priority="0" />
+      <Item value="Debugger`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.FieldExpr">
+      <Item value="VariableInfo" priority="0" />
+      <Item value="Location" priority="0" />
+      <Item value="DeclaringType" priority="0" />
+      <Item value="Name" priority="5" />
+      <Item value="IsRole" priority="4" />
+      <Item value="Type" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.Arguments">
+      <Item value="Count" priority="3" />
+      <Item value="RemoveAt`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Diagnostics.Contracts.Contract">
+      <Item value="Assert`0" priority="2" />
+      <Item value="Requires`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.MethodGroupExpr">
+      <Item value="Candidates" priority="0" />
+      <Item value="BestCandidate" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IList`1">
+      <Item value="Where`1" priority="1" />
+      <Item value="Cast`1" priority="0" />
+      <Item value="Count" priority="0" />
+      <Item value="OfType`1" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IEnumerable`1">
+      <Item value="Any`1" priority="1" />
+      <Item value="Skip`1" priority="0" />
+      <Item value="Select`2" priority="0" />
+      <Item value="All`1" priority="0" />
+      <Item value="SingleOrDefault`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.MethodSpec">
+      <Item value="IsRoleMethod" priority="0" />
+      <Item value="GetMetaInfo`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.Invocation">
+      <Item value="Resolve`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.ResolveContext">
+      <Item value="Report" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.Report">
+      <Item value="DisableReporting`0" priority="0" />
+      <Item value="Error`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.MemberAccess">
+      <Item value="ignoreErrors" priority="0" />
+      <Item value="Name" priority="2" />
+      <Item value="LeftExpression" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Int32">
+      <Item value="MinValue" priority="0" />
+      <Item value="MaxValue" priority="3" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Marvin.Examples.Dijkstra___Manhattan.Node">
+      <Item value="Name" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Object">
+      <Item value="GetHashCode`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Marvin.Examples.FrontLoader.Activity">
+      <Item value="duration" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Linq.Enumerable">
+      <Item value="Empty`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Console">
+      <Item value="WriteLine`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DateTime">
+      <Item value="Now" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.DateTime">
+      <Item value="Date" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.Field">
+      <Item value="TypeExpression" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.FieldBase">
+      <Item value="TypeExpression" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.FullNamedExpression">
+      <Item value="Type" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.TypeSpec">
+      <Item value="BuiltinType" priority="4" />
+      <Item value="Name" priority="2" />
+      <Item value="Equals`0" priority="0" />
+      <Item value="nguid" priority="0" />
+      <Item value="GetHashCode`0" priority="0" />
+      <Item value="BaseType" priority="2" />
+      <Item value="IsInterface" priority="0" />
+      <Item value="Interfaces" priority="2" />
+      <Item value="IsBaseOf`0" priority="0" />
+      <Item value="MemberCache" priority="0" />
+      <Item value="IsDynamic`0" priority="1" />
+      <Item value="GetMetaInfo`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.Method">
+      <Item value="ModFlags" priority="0" />
+      <Item value="Name" priority="1" />
+      <Item value="ParameterTypes" priority="4" />
+      <Item value="ParameterInfo" priority="0" />
+      <Item value="Spec" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Mono.CSharp.Modifiers">
+      <Item value="NOEMIT" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.MemberCore">
+      <Item value="IsCompilerGenerated" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.Parameter">
+      <Item value="Clone`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.SimpleName">
+      <Item value="Clone`0" priority="0" />
+      <Item value="Resolve`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.RoleField">
+      <Item value="Contract" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Mono.CSharp.CSharpParser">
+      <Item value="GetCurrentRoleContractName`0" priority="0" />
+      <Item value="RoleContracts" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary`2">
+      <Item value="ContainsKey`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.Interface">
+      <Item value="Methods" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.Argument">
+      <Item value="ArgType" priority="0" />
+      <Item value="Type" priority="3" />
+      <Item value="Resolve`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.String">
+      <Item value="CompareTo`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Marvin.TypeSpecExtensions+TypeSpecComparer">
+      <Item value="Equals`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Mono.CSharp.BuiltinTypeSpec+Type">
+      <Item value="Double" priority="1" />
+      <Item value="Int" priority="0" />
+      <Item value="UInt" priority="0" />
+      <Item value="Byte" priority="0" />
+      <Item value="SByte" priority="0" />
+      <Item value="Short" priority="0" />
+      <Item value="ULong" priority="0" />
+      <Item value="Long" priority="0" />
+      <Item value="Float" priority="0" />
+      <Item value="Dynamic" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Mono.CSharp.BuiltinTypeSpec">
+      <Item value="Type`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.ParametersCompiled">
+      <Item value="FixedParameters" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.Tuple`2">
+      <Item value="Item2" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Mono.CSharp.Expression">
+      <Item value="Type" priority="1" />
+      <Item value="Resolve`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Diagnostics.Debugger">
+      <Item value="Break`0" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:delegate.cs" caret="23187" fromTop="26" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:dynamic.cs" caret="6351" fromTop="29" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:ikvm.cs" caret="470" fromTop="21" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:anonymous.cs" caret="39282" fromTop="25" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:decl.cs" caret="12430" fromTop="25" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:property.cs" caret="39313" fromTop="12" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:field.cs" caret="408" fromTop="14" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:class.cs" caret="46548" fromTop="28" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:roottypes.cs" caret="10531" fromTop="25" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:parameter.cs" caret="5213" fromTop="25" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:modifiers.cs" caret="1220" fromTop="31" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:statement.cs" caret="48578" fromTop="37" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:method.cs" caret="7160" fromTop="25" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:expression.cs" caret="151925" fromTop="32" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:lambda.cs" caret="5883" fromTop="34" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:cs-parser.cs" caret="497694" fromTop="25" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:assign.cs" caret="8568" fromTop="34" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:ecore.cs" caret="11178" fromTop="25" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:RoleAssign.cs" caret="1074" fromTop="26" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:TypeSpecExtensions.cs" caret="1430" fromTop="12" />
+      <File id="B74D3682-BA0E-4519-8C1C-46B4A281A7A5/d:Web/f:SecurityContext.cs" caret="0" fromTop="0" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:typespec.cs" caret="1646" fromTop="26" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:driver.cs" caret="959" fromTop="43" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:generic.cs" caret="8679" fromTop="21" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:argument.cs" caret="391" fromTop="20" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:TypeSpecExtensions.cs" caret="877" fromTop="20" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:TypeSpecExtensions.cs" caret="1268" fromTop="29" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:assign.cs" caret="21286" fromTop="26" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:assign.cs" caret="380" fromTop="16" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:lambda.cs" caret="5775" fromTop="25" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:RoleAssign.cs" caret="214" fromTop="5" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:RoleAssign.cs" caret="1659" fromTop="17" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:RoleAssign.cs" caret="1659" fromTop="22" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:TypeSpecExtensions.cs" caret="1718" fromTop="34" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:RoleAssign.cs" caret="1659" fromTop="17" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:RoleAssign.cs" caret="1659" fromTop="23" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:RoleAssign.cs" caret="1659" fromTop="32" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:RoleAssign.cs" caret="1682" fromTop="36" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:RoleAssign.cs" caret="1076" fromTop="25" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:RoleAssign.cs" caret="1035" fromTop="25" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:TypeSpecExtensions.cs" caret="4030" fromTop="35" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:TypeSpecExtensions.cs" caret="3812" fromTop="31" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:TypeSpecExtensions.cs" caret="4241" fromTop="37" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:typespec.cs" caret="42778" fromTop="24" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:typespec.cs" caret="680" fromTop="27" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:typespec.cs" caret="1569" fromTop="44" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:generic.cs" caret="92706" fromTop="14" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:driver.cs" caret="648" fromTop="27" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:driver.cs" caret="92706" fromTop="43" />
+      <File id="D4A01C5B-A1B5-48F5-BB5B-D2E1BD236E56/f:argument.cs" caret="0" fromTop="0" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir>C:\Program Files (x86)\NUnit 2.5.9\bin\net-2.0\</NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+</Configuration>

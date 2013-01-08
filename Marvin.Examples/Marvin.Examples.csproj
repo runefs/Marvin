@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B74D3682-BA0E-4519-8C1C-46B4A281A7A5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Marvin.Examples</RootNamespace>
+    <AssemblyName>Marvin.Examples</AssemblyName>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <MoneyTransferFiles Include="MoneyTransfer\Account.cs" />
+    <MoneyTransferFiles Include="MoneyTransfer\Account.dll" />
+    <MoneyTransferFiles Include="MoneyTransfer\LedgerEntry.cs" />
+    <MoneyTransferFiles Include="MoneyTransfer\MoneyTransfer.cs" />
+    <MoneyTransferFiles Include="MoneyTransfer\Program.cs" />
+    <FrontLoaderFiles Include="FrontLoader\*.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dijkstra - Manhattan\Subgraph.cs" />
+    <Compile Include="Misc\NestedGenericContext.cs" />
+    <Compile Include="Web\SecurityContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="build.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dijkstra - Manhattan\index.html" />
+  </ItemGroup>
+  <Target Name="Compile">
+    <!--<Exec Command="&quot;$(ProjectDir)..\mcs\Marvin.exe&quot; -m:Marvin.Examples.Program -out:MarvinExamples.exe .\MoneyTransfer\*.cs" />
+    <Exec Command="&quot;$(ProjectDir)..\mcs\Marvin.exe&quot; -out:FrontLoader.exe .\FrontLoader\*.cs" />-->
+  </Target>
+  <Target Name="ZipMoneyTransfer">
+    <Zip Files="@(MoneyTransferFiles)" ZipFileName="MoneyTransfer.zip" />
+  </Target>
+  <Target Name="ZipFrontLoader">
+    <Zip Files="@(FrontLoaderFiles)" ZipFileName="FrontLoader.zip" />
+  </Target>
+  <Target Name="Build" DependsOnTargets="Compile;ZipMoneyTransfer;ZipFrontLoader" />
+  <Target Name="Rebuild" DependsOnTargets="Build" />
+</Project>

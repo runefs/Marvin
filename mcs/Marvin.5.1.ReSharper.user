@@ -1,0 +1,63 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="d:Miscellaneous Files/f:typespec.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?typespec.cs" caret="6077" fromTop="23" />
+      <File id="d:Miscellaneous Files/f:import.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?import.cs" caret="27281" fromTop="47" />
+      <File id="d:Miscellaneous Files/f:statement.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?statement.cs" caret="61315" fromTop="25" />
+      <File id="d:Miscellaneous Files/f:method.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?method.cs" caret="39038" fromTop="40" />
+      <File id="d:Miscellaneous Files/f:dynamic.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?dynamic.cs" caret="13409" fromTop="26" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="150008" fromTop="25" />
+      <File id="d:Miscellaneous Files/f:driver.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?driver.cs" caret="806" fromTop="40" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="88259" fromTop="26" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="193087" fromTop="25" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="245505" fromTop="29" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="193087" fromTop="28" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="193087" fromTop="28" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="193087" fromTop="4" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="193087" fromTop="50" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="142616" fromTop="30" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="137872" fromTop="23" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="100077" fromTop="32" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="99948" fromTop="29" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="145652" fromTop="41" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="179077" fromTop="43" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="178823" fromTop="32" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="137790" fromTop="0" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="178198" fromTop="8" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="245505" fromTop="18" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="245505" fromTop="49" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="245505" fromTop="49" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="245505" fromTop="49" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="245505" fromTop="46" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="245505" fromTop="8" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="245505" fromTop="8" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="220304" fromTop="1" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="150852" fromTop="19" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="137394" fromTop="26" />
+      <File id="d:Miscellaneous Files/f:expression.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?expression.cs" caret="150151" fromTop="29" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="11488" fromTop="25" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="131716" fromTop="25" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="88120" fromTop="24" />
+      <File id="d:Miscellaneous Files/f:ecore.cs/l:C!?Projects?Mono -Marvin?mcs?mcs?ecore.cs" caret="88345" fromTop="28" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir>C:\Program Files (x86)\NUnit 2.5.9\bin\net-2.0\</NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+</Configuration>

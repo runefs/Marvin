@@ -1,0 +1,25 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="cs-parser.jay">
+    <Files>
+      <File FileName="cs-parser.jay" Line="994" Column="6" />
+      <File FileName="cs-parser.cs" Line="4152" Column="33" />
+      <File FileName="cs-tokenizer.cs" Line="21" Column="13" />
+      <File FileName="ecore.cs" Line="2212" Column="14" />
+      <File FileName="modifiers.cs" Line="24" Column="23" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="mcs-net_4_0" expanded="True">
+            <Node name="References" expanded="True" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

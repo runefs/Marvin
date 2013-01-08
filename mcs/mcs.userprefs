@@ -1,0 +1,39 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="driver.cs">
+    <Files>
+      <File FileName="class.cs" Line="1" Column="1" />
+      <File FileName="statement.cs" Line="2741" Column="15" />
+      <File FileName="ecore.cs" Line="1" Column="1" />
+      <File FileName="assign.cs" Line="1" Column="1" />
+      <File FileName="expression.cs" Line="1" Column="1" />
+      <File FileName="../tools/monop/outline.cs" Line="1" Column="1" />
+      <File FileName="constant.cs" Line="1" Column="1" />
+      <File FileName="method.cs" Line="1" Column="1" />
+      <File FileName="decl.cs" Line="624" Column="62" />
+      <File FileName="anonymous.cs" Line="1827" Column="24" />
+      <File FileName="parameter.cs" Line="21" Column="30" />
+      <File FileName="attribute.cs" Line="1077" Column="3" />
+      <File FileName="driver.cs" Line="30" Column="13" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Marvin" expanded="True">
+            <Node name="driver.cs" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
